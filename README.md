@@ -1,23 +1,25 @@
-# Screenshot
+# Screenshot Bundle
 
 This bundle provides two tools to take simple or configured screenshots of the map.
 
-## Usage
-Load the bundle "screenshot" and add the "screenshotTool" or "screenshotToggleTool" to your app.
+## Installation Guide
+
+Load the bundle "dn_screenshot" and add the "screenshotTool" or "screenshotToggleTool" to your app.
 The "screenshotTool" simply provides a button for taking screenshots.
 The "screenshotToggleTool" opens a User Interface to configure the Screenshot beforehand.
 E.g. you can adjust the extent, format and quality of the shot.
 
-## Configuration Reference
+[dn_screenshot Documentation](https://github.com/conterra/mapapps-streetsmart/tree/master/src/main/js/bundles/dn_screenshot)
 
-```json
-"Config": {
-    "format": "jpg"
-}
-```
+## Development Guide
+### Define the mapapps remote base
+Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:
+`<mapapps.remote.base>http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%</mapapps.remote.base>`
 
-| Property         | Type    | Possible Values                | Default       | Description                                          |
-|------------------|---------|--------------------------------|---------------|------------------------------------------------------|
-| format           | String  | ```"png"``` &#124; ```"jpg"``` | ```"png"```   | specify the format of the screenshot                 |
-| quality          | Int     | ```0``` to ```100```           | ```98```      | specify the quality of the screenshot                |
-| ignoreBackground | Boolean | ```true``` &#124; ```false```  | ```false```   | specify if the Background Color of the view is ignored (this is only relevant if no basemap is defined) |
+### Other methods to to define the mapapps.remote.base property.
+1. Goal parameters
+`mvn install -Dmapapps.remote.base=http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%`
+
+2. Build properties
+Change the mapapps.remote.base in the build.properties file and run:
+`mvn install -Denv=dev -Dlocal.configfile=%ABSOLUTEPATHTOPROJECTROOT%/build.properties`
