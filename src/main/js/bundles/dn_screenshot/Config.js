@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    root: {
-        apptitle: "Screenshot"
-    },
-    "de": true
-};
+/**
+* Copyright (C) con terra GmbH
+*/
+import { declare } from "apprt-core/Mutable";
+
+const Config = declare({
+    "ignoreBackground": undefined,
+    "quality": undefined,
+    "format": undefined
+});
+export default Config;

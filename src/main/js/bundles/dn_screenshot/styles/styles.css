@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2020 con terra GmbH (info@conterra.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    root: {
-        bundleName: "Hello World",
-        bundleDescription: "This bundle prints Hello.",
-        hello: "Hello World"
-    },
-    de: true
-};
+.screenshot_rectangle {
+    border-color:
+            #12a5f4; /* everlasting */
+            /* #2980b9; autumn */
+            /* #16a085; spring */
+            /* #8c0f1a; summer */
+            /* #3c3c3c; winter */
+    border-width: 2px;
+    border-style: solid;
+    position: absolute;
+    pointer-events: none;
+}

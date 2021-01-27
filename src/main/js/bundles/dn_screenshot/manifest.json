@@ -1,0 +1,157 @@
+{
+    "name": "dn_screenshot",
+    "title": "${bundleName}",
+    "version": "0.0.1",
+    "dependencies": {
+        "esri": "^4.6.0",
+        "apprt-vue": "^4.6.0",
+        "apprt-vuetify": "^4.6.0",
+        "map-actions": "^4.6.0"
+    },
+    "main": "",
+    "CSS-Themes-Extension": [{
+        "name": "*",
+        "files": ["styles/styles.css"]
+    }],
+    "productName": "devnet-mapapps-screenshot",
+    "layout-widgets": [{
+        "widgetRole": "screenshot",
+        "template": "seasons",
+        "window": {
+            "autofocus": false,
+            "dockTool": "screenshotToggleTool",
+            "minimizeOnClose": true,
+            "marginBox": {
+				"l": 20,
+				"t": 125,
+				"w": 320,
+				"h": 425
+            },
+            "minSize": {
+                "h": 425
+            }
+        }
+    }
+    ],
+    "components": [{
+            "name": "ScreenshotControl",
+            "provides": "tools.ScreenshotControl",
+            "references": [
+                {
+                    "name": "model",
+                    "providing": "map-widget.MapWidgetModel"
+                }, {
+                    "name": "layerFactory",
+                    "providing": "map-config-api.LayerFactory"
+                },
+                {
+                    "name": "_appCtx",
+                    "providing": "ct.framework.api.ApplicationContext"
+                },
+                {
+                    "name": "actionService",
+                    "providing": "map-actions.ActionService"
+                },
+                {
+                    "name": "config",
+                    "providing": "dn_screenshot.config"
+                }]
+        },
+        {
+            "name": "ScreenshotTool",
+            "impl": "ct/tools/Tool",
+            "provides": [
+                "ct.tools.Tool"
+            ],
+            "propertiesConstructor": true,
+            "properties": {
+                "id": "screenshotTool",
+                "title": "${tool.title}",
+                "iconClass": "icon-doc-image-landscape",
+                "toolRole": "toolset",
+                "togglable": false,
+                "rules": {
+                    "noGroup": true
+                },
+                "clickHandler": "screenshot"
+            },
+            "references":[{
+                "name": "handlerScope",
+                "providing": "tools.ScreenshotControl"
+            },{
+                "name": "config",
+                "providing": "dn_screenshot.config"
+            }]
+        },
+        {
+            "name": "ScreenshotToggleTool",
+            "impl": "ct/tools/Tool",
+            "provides": [
+                "ct.tools.Tool"
+            ],
+            "propertiesConstructor": true,
+            "properties": {
+                "id": "screenshotToggleTool",
+                "title": "${ui.windowTitle}",
+                "iconClass": "icon-doc-image-landscape",
+                "toolRole": "toolset",
+                "togglable": true,
+                "rules": {
+                    "noGroup": true
+                },
+                "activateHandler": "enableBinding",
+                "deactivateHandler": "disableBinding"
+            },
+            "references":[{
+                "name": "handlerScope",
+                "providing": "dn_screenshot.Widget"
+            }]
+        }, {
+            "name": "ScreenshotUIFactory",
+            "provides": ["dijit.Widget", "dn_screenshot.Widget"],
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "screenshot"
+            },
+            "references": [
+                {
+                    "name": "model",
+                    "providing": "map-widget.MapWidgetModel"
+                }, {
+                    "name": "layerFactory",
+                    "providing": "map-config-api.LayerFactory"
+                },
+                {
+                    "name": "_appCtx",
+                    "providing": "ct.framework.api.ApplicationContext"
+                },
+                {
+                    "name": "_drawFactory",
+                    "providing": "mapdraw-api.DrawingFactory"
+                },
+                {
+                    "name": "actionService",
+                    "providing": "map-actions.ActionService"
+                },
+                {
+                    "name": "screenshotControl",
+                    "providing": "tools.ScreenshotControl"
+                },
+                {
+                    "name": "config",
+                    "providing": "dn_screenshot.config"
+                }
+            ]
+        },
+        {
+            "name": "Config",
+            "provides": "dn_screenshot.config",
+            "properties": {
+                "ignoreBackground": false,
+                "quality": 98,
+                "format": "png"
+            },
+            "propertiesConstructor": true
+        }
+    ]
+}

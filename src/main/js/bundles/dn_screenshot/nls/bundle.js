@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 module.exports = {
-    root: {
-        apptitle: "Screenshot"
-    },
+    root: ({
+        bundleName: "screenshot",
+        bundleDescription: "take and configure screenshots of the map",
+        ui: {
+            windowTitle: "Screenshot UI"
+        },
+        tool: {
+            title: "Screenshot"
+        }
+    }),
     "de": true
 };
