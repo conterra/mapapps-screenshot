@@ -25,10 +25,10 @@
             <div
                 class="ct-flex-item overflow--auto pa-3"
             >
-                <h4>Area of the Screenshot</h4>
+                <h4>{{ i18n.areaTitle }}</h4>
                 <v-checkbox
                     v-model="captureFullMap"
-                    label="Full map extent"
+                    :label="i18n.fullMapExtent"
                     color="success"
                     @click="deleteArea()"
                 />
@@ -52,11 +52,11 @@
                         color="secondary"
                         @click="deleteArea()"
                     >
-                        Remove area
+                        {{ i18n.removeArea }}
                     </v-btn>
-                    <p v-if="toggle_exclusive!=undefined">draw a rectangle in the map</p>
+                    <p v-if="toggle_exclusive!=undefined">{{i18n.drawInfo }}</p>
                 </div>
-                <h4>Image file format</h4>
+                <h4>{{ i18n.fileFormat }}</h4>
                 <v-radio-group
                     v-model="properties.format"
                     row
@@ -72,7 +72,7 @@
                 <div
                     v-show="properties.format==='jpg'"
                 >
-                    <h4>Quality</h4>
+                    <h4>{{ i18n.quality }}</h4>
                     <v-slider
                         v-model="properties.quality"
                         thumb-label
@@ -85,7 +85,7 @@
                 <v-checkbox
                     v-if="basemap == undefined"
                     v-model="properties.ignoreBackground"
-                    label="Hide background"
+                    :label="i18n.background"
                     hide-details
                     color="success"
                 />
@@ -137,7 +137,7 @@
         },
         computed: {
             selectAreaLabel(){
-                return this.areaDrawn?"Select new area" : "Select Area"
+                return this.areaDrawn? this.i18n.selectNew : this.i18n.selectArea
             }
         },
         methods: {

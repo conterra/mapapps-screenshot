@@ -26,6 +26,7 @@ class ScreenshotUIFactory {
         let screenshotToViewBinding = this._screenshotToViewBinding = this.declareScreenshotToVueBinding();
         let basemapToViewBinding = this._basemapToViewBinding = this.declareBasemapToVueBinding();
         const vm = new Vue(ScreenshotUI);
+        vm.i18n = this._i18n.get().ui;
         const props = this.config;
         const widget = VueDijit(vm);
         const _this = this;

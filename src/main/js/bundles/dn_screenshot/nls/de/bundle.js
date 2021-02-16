@@ -17,7 +17,16 @@ module.exports = {
     bundleName: "screenshot",
     bundleDescription: "Aufnehmen und Konfigurieren von Screenshots",
     ui: {
-        windowTitle: "Screenshot UI"
+        windowTitle: "Screenshot Konfiguration",
+        fullMapExtent: "Vollständiger Kartenausschnitt",
+        areaTitle: "Kartenausschnitt des Screenshots",
+        fileFormat: "Bilddateiformat",
+        quality: "Qualität",
+        selectArea: "Ausschnitt wählen",
+        selectNew: "Neuen Ausschnitt wählen",
+        drawInfo: "zeichnen sie per Mausklick ein Rechteck in die Karte",
+        removeArea: "Ausschnitt aufheben",
+        background: "Hintergrund verstecken"
     },
     tool: {
         title: "Screenshot"

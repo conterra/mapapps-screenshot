@@ -18,7 +18,15 @@ module.exports = {
         bundleName: "screenshot",
         bundleDescription: "take and configure screenshots of the map",
         ui: {
-            windowTitle: "Screenshot UI"
+            windowTitle: "Screenshot Configuration",
+            areaTitel: "Area of the Screenshot",
+            fullMapExtent: "Full Map Extent",
+            fileFormat: "Image file format",
+            quality: "Quality",
+            selectArea: "Select area",
+            drawInfo: "Draw a rectangle into the map",
+            removeArea: "Remove area",
+            background: "Hide background"
         },
         tool: {
             title: "Screenshot"
