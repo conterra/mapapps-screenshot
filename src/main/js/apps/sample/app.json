@@ -8,6 +8,7 @@
             "bundles"
         ],
         "allowedBundles": [
+            "console",
             "system",
             "banner",
             "splashscreen",
@@ -16,11 +17,11 @@
             "theme-everlasting",
             "toolset",
             "map-init",
-            "agssearch",
-            "console",
-            "viewmodeswitcher",
-            "dn_screenshot",
-            "mapdraw-api"
+            "map-preload-2D",
+            "mapnavigation",
+            "toc",
+            "basemaptoggler",
+            "dn_screenshot"
         ],
         "require": [
             "${app}.app"
@@ -46,20 +47,24 @@
         },
         "map-init": {
             "Config": {
-                "basemaps": [{
-                    "id": "streets",
-                    "basemap": "streets",
-                    "title": "Strassen",
-                    "selected": true
-                },{
-                    "id": "satellite",
-                    "basemap": "satellite",
-                    "title": "Satellit"
-                },{
-                    "id": "hybrid",
-                    "basemap": "hybrid",
-                    "title": "Hybrid"
-                }],
+                "basemaps": [
+                    {
+                        "id": "streets",
+                        "basemap": "streets",
+                        "title": "Strassen",
+                        "selected": true
+                    },
+                    {
+                        "id": "satellite",
+                        "basemap": "satellite",
+                        "title": "Satellit"
+                    },
+                    {
+                        "id": "hybrid",
+                        "basemap": "hybrid",
+                        "title": "Hybrid"
+                    }
+                ],
                 "map": {
                     "layers": [
                         {
@@ -97,10 +102,18 @@
             "ToolsetManager": {
                 "toolsets": [
                     {
-                        "id": "defaultToolSet",
-                        "tools": ["screenshotTool","screenshotToggleTool","viewmodeSwitcherTool"],
+                        "id": "mapview_tools",
+                        "tools": [
+                            "locateMeTool",
+                            "zoomInTool",
+                            "zoomOutTool",
+                            "compassTool",
+                            "restoreInitialViewTool",
+                            "screenshotTool",
+                            "screenshotToggleTool"
+                        ],
                         "registerWidget": {
-                            "widgetRole": "map_topleft"
+                            "widgetRole": "mapview_tools"
                         },
                         "container": "ignore",
                         "windowType": "container",
