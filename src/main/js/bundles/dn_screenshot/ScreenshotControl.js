@@ -24,7 +24,7 @@ function initDraw(canvas) {
             mouse.x = ev.clientX + document.body.scrollLeft - mapOffset.left;
             mouse.y = ev.clientY + document.body.scrollTop - mapOffset.top;
         }
-    };
+    }
 
     var mouse = {
         x: 0,
@@ -49,7 +49,7 @@ function initDraw(canvas) {
             canvas.style.cursor = "default";
             let children = canvas.getElementsByClassName("screenshot_rectangle");
             if(children.length > 1) {
-                children.forEach((child,i) => {
+                children.forEach((child, i) => {
                     if(i<children.length-1) {
                         canvas.removeChild(child);
                     }

@@ -35,7 +35,7 @@ class ScreenshotUIFactory {
         // bind properties and view model
         screenshotToViewBinding.bindTo(this, vm);
         // bind basemap and vue
-        basemapToViewBinding.bindTo(this.model.map,vm)
+        basemapToViewBinding.bindTo(this.model.map, vm)
 
         // register methods to enable/disable binding
         widget.enableBinding = function () {

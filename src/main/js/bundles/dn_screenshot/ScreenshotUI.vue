@@ -35,7 +35,7 @@
                 <div v-show="!captureFullMap" class="mb-2">
                     <v-btn-toggle
                         v-model="toggle_exclusive"
-                        >
+                    >
                         <v-btn
                             small
                             class="ml-0 d-inline-block"
@@ -129,7 +129,7 @@
                 },
                 captureFullMap: true,
                 possibleFormats: ["png", "jpg"],
-                _drawFactory: null,
+                drawFactory: null,
                 areaDrawn: false,
                 basemap: undefined,
                 toggle_exclusive: undefined
