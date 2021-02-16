@@ -25,7 +25,7 @@
             <div
                 class="ct-flex-item overflow--auto pa-3"
             >
-                <h4>Area of Screenshot</h4>
+                <h4>Area of the Screenshot</h4>
                 <v-checkbox
                     v-model="captureFullMap"
                     label="Full map extent"
@@ -56,7 +56,7 @@
                     </v-btn>
                     <p v-if="toggle_exclusive!=undefined">draw a rectangle in the map</p>
                 </div>
-                <h4>Imagefile format</h4>
+                <h4>Image file format</h4>
                 <v-radio-group
                     v-model="properties.format"
                     row

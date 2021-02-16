@@ -4,7 +4,7 @@ One that takes screenshots based on the configuration in the app.json/manifest.j
 The second one also provides a user interface for configuration.
 
 ## Usage
-**Requirement: map.apps 4.9.2**
+**Requirement: map.apps 4.9.2 or later**
 
 1. First you need to add the bundle screenshot to your app.
 2. Then you can configure it as described in the section.

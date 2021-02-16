@@ -3,6 +3,7 @@
 This bundle provides two tools to take simple or configured screenshots of the map.
 
 ## Installation Guide
+**Requirement: map.apps 4.9.2 or later**
 
 Load the bundle "dn_screenshot" and add the "screenshotTool" or "screenshotToggleTool" to your app.
 The "screenshotTool" simply provides a button for taking screenshots.
