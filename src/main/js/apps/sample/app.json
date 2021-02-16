@@ -110,9 +110,9 @@
                             "zoomOutTool",
                             "compassTool",
                             "restoreInitialViewTool",
+                            "viewmodeSwitcherTool",
                             "screenshotTool",
-                            "screenshotToggleTool",
-                            "viewmodeSwitcherTool"
+                            "screenshotToggleTool"
                         ],
                         "registerWidget": {
                             "widgetRole": "mapview_tools"
