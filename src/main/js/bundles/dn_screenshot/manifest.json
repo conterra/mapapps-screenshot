@@ -6,7 +6,8 @@
         "esri": "^4.6.0",
         "apprt-vue": "^4.6.0",
         "apprt-vuetify": "^4.6.0",
-        "map-actions": "^4.6.0"
+        "map-actions": "^4.6.0",
+        "mapdraw-api": "^4.6.0"
     },
     "main": "",
     "CSS-Themes-Extension": [{
