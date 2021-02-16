@@ -14,14 +14,28 @@
  * limitations under the License.
  */
 .screenshot_rectangle {
-    border-color:
-            #12a5f4; /* everlasting */
-            /* #2980b9; autumn */
-            /* #16a085; spring */
-            /* #8c0f1a; summer */
-            /* #3c3c3c; winter */
+    border-color: #12a5f4;
     border-width: 2px;
     border-style: solid;
     position: absolute;
     pointer-events: none;
+}
+.ctAppRoot.everlasting .screenshot_rectangle {
+    border-color: #12a5f4;;
+}
+
+.ctAppRoot.autumn .screenshot_rectangle {
+    border-color: #2980b9;
+}
+
+.ctAppRoot.summer .screenshot_rectangle {
+    border-color: #8c0f1a;
+}
+
+.ctAppRoot.spring .screenshot_rectangle {
+    border-color: #16a085;
+}
+
+.ctAppRoot.winter .screenshot_rectangle {
+    border-color: #3c3c3c;
 }
