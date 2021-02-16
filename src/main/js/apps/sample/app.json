@@ -16,6 +16,8 @@
             "template-seasons",
             "theme-everlasting",
             "toolset",
+            "mapdraw-api",
+            "viewmodeswitcher",
             "map-init",
             "map-preload-2D",
             "mapnavigation",
@@ -110,7 +112,8 @@
                             "compassTool",
                             "restoreInitialViewTool",
                             "screenshotTool",
-                            "screenshotToggleTool"
+                            "screenshotToggleTool",
+                            "viewmodeSwitcherTool"
                         ],
                         "registerWidget": {
                             "widgetRole": "mapview_tools"
