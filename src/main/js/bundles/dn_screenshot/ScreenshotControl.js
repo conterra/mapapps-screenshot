@@ -28,8 +28,8 @@ class ScreenshotControl{
             }
         });
         const root = this._appCtx.getApplicationRootNode();
-        let canvas = this.model.view.container
-        if(canvas) {
+        this.canvas = this.model.view.container
+        if(this.canvas) {
             var mouse = {
                 x: 0,
                 y: 0,
@@ -38,9 +38,9 @@ class ScreenshotControl{
             };
             var element = null;
 
-            canvas.onmousemove = (e) => {
+            this.canvas.onmousemove = (e) => {
                 var ev = e || window.event; //Moz || IE
-                let mapOffset = canvas.getBoundingClientRect();
+                let mapOffset = this.canvas.getBoundingClientRect();
                 if (ev.pageX) { //Moz
                     mouse.x = ev.pageX + window.pageXOffset - mapOffset.left;
                     mouse.y = ev.pageY + window.pageYOffset - mapOffset.top;
@@ -56,14 +56,14 @@ class ScreenshotControl{
                 }
             }
 
-            canvas.onclick = (e) => {
+            this.canvas.onclick = (e) => {
                 if (element !== null) {
-                    canvas.style.cursor = "default";
-                    let children = canvas.getElementsByClassName("screenshot_rectangle");
+                    this.canvas.style.cursor = "default";
+                    let children = this.canvas.getElementsByClassName("screenshot_rectangle");
                     if(children.length > 1) {
                         children.forEach((child, i) => {
                             if(i<children.length-1) {
-                                canvas.removeChild(child);
+                                this.canvas.removeChild(child);
                             }
                         })
                     }
@@ -78,8 +78,8 @@ class ScreenshotControl{
                     const drawFinishedEvent = new Event('drawFinished');
                     window.dispatchEvent(drawFinishedEvent);
                     element = null;
-                    canvas.onclick = null;
-                    canvas.onmousemove = null;
+                    this.canvas.onclick = null;
+                    this.canvas.onmousemove = null;
                     this.stopPanning = false;
                 } else {
                     mouse.startX = mouse.x;
@@ -88,17 +88,19 @@ class ScreenshotControl{
                     element.className = 'screenshot_rectangle'
                     element.style.left = mouse.x + 'px';
                     element.style.top = mouse.y + 'px';
-                    canvas.appendChild(element)
-                    canvas.style.cursor = "crosshair";
+                    this.canvas.appendChild(element)
+                    this.canvas.style.cursor = "crosshair";
                 }
             }
-            window.addEventListener("drawAbort", () => {
-                if(canvas.onclick) {
-                    canvas.onclick = null;
-                }
-                this.stopPanning = false;
-            });
         }
+    }
+
+    abortDrawing() {
+        if(this.canvas.onclick) {
+            this.canvas.style.cursor = "default";
+            this.canvas.onclick = null;
+        }
+        this.stopPanning = false;
     }
 
     /**

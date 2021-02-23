@@ -14,15 +14,16 @@
             "splashscreen",
             "templatelayout",
             "template-seasons",
-            "theme-everlasting",
+            "theme-autumn",
             "toolset",
-            "viewmodeswitcher",
             "map-init",
             "map-preload-2D",
             "mapnavigation",
             "toc",
             "basemaptoggler",
-            "dn_screenshot"
+            "viewmodeswitcher",
+            "dn_screenshot",
+            "dn_imprintprivacy"
         ],
         "require": [
             "${app}.app"

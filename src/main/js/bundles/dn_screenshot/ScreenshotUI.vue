@@ -141,23 +141,18 @@
         },
         methods: {
             takeScreenshot() {
-                const screenshotEvent = new Event('takeScreenshot');
-                window.dispatchEvent(screenshotEvent);
+                this.$emit('takeScreenshot');
             },
             createDrawing(){
                 if(this.toggle_exclusive==undefined) {
-                    const drawEvent = new Event('drawArea');
-                    window.dispatchEvent(drawEvent);
+                    this.$emit('drawArea');
                 } else {
-                    const drawAbortEvent = new Event('drawAbort');
-                    window.dispatchEvent(drawAbortEvent);
+                    this.$emit('drawAbort');
                 }
             },
             deleteArea(){
-                const removeDrawEvent = new Event('deleteArea');
-                window.dispatchEvent(removeDrawEvent);
-                const drawAbortEvent = new Event('drawAbort');
-                window.dispatchEvent(drawAbortEvent);
+                this.$emit('deleteArea');
+                this.$emit('drawAbort');
                 this.areaDrawn = false;
                 this.toggle_exclusive = undefined;
             },

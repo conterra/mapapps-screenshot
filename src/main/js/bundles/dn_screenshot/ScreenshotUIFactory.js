@@ -46,9 +46,10 @@ class ScreenshotUIFactory {
             propertiesToViewBinding.enable().syncToRightNow();
             screenshotToViewBinding.enable().syncToLeftNow();
             basemapToViewBinding.enable().syncToRightNow();
-            window.addEventListener("takeScreenshot", this.screenshotControl.screenshot.bind(this));
-            window.addEventListener("drawArea", this.screenshotControl.createDrawing.bind(this));
-            window.addEventListener("deleteArea", this.screenshotControl.deleteArea.bind(this));
+            vm.$on("drawAbort", this.screenshotControl.abortDrawing.bind(this));
+            vm.$on("drawArea", this.screenshotControl.createDrawing.bind(this));
+            vm.$on("takeScreenshot", this.screenshotControl.screenshot.bind(this));
+            vm.$on("deleteArea", this.screenshotControl.deleteArea.bind(this));
         }
         widget.disableBinding = function () {
             propertiesToViewBinding?.disable();
