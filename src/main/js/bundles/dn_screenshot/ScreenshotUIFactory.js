@@ -29,38 +29,41 @@ class ScreenshotUIFactory {
         vm.i18n = this._i18n.get().ui;
         const props = this.config;
         const widget = VueDijit(vm);
-        const _this = this;
 
         // bind properties and view model
         propertiesToViewBinding.bindTo(props, vm.properties);
         // bind properties and view model
         screenshotToViewBinding.bindTo(this, vm);
-        // bind basemap and vue
-        basemapToViewBinding.bindTo(this.model.map, vm)
 
         // register methods to enable/disable binding
-        widget.enableBinding = function () {
+        widget.enableBinding = () => {
+            // bind basemap and vue
+            let temp = {
+                basemap: this.model.map.basemap != undefined
+            }
+            basemapToViewBinding.bindTo(temp, vm);
+
             propertiesToViewBinding.enable().syncToRightNow();
             screenshotToViewBinding.enable().syncToLeftNow();
             basemapToViewBinding.enable().syncToRightNow();
-            window.addEventListener("takeScreenshot", _this.screenshotControl.__proto__.screenshot.bind(_this));
-            window.addEventListener("drawArea", _this.screenshotControl.__proto__.createDrawing.bind(_this));
-            window.addEventListener("deleteArea", _this.screenshotControl.__proto__.deleteArea.bind(_this));
+            window.addEventListener("takeScreenshot", this.screenshotControl.screenshot.bind(this));
+            window.addEventListener("drawArea", this.screenshotControl.createDrawing.bind(this));
+            window.addEventListener("deleteArea", this.screenshotControl.deleteArea.bind(this));
         }
         widget.disableBinding = function () {
-            propertiesToViewBinding.disable();
-            screenshotToViewBinding.disable();
-            basemapToViewBinding.disable();
+            propertiesToViewBinding?.disable();
+            screenshotToViewBinding?.disable();
+            basemapToViewBinding?.disable();
         }
 
         // clean up binding and attached functions
         widget.own({
             remove() {
-                propertiesToViewBinding.unbind();
+                propertiesToViewBinding?.unbind();
                 propertiesToViewBinding = undefined;
-                screenshotToViewBinding.unbind();
+                screenshotToViewBinding?.unbind();
                 screenshotToViewBinding = undefined;
-                basemapToViewBinding.unbind();
+                basemapToViewBinding?.unbind();
                 basemapToViewBinding = undefined;
                 widget.enableBinding = widget.disableBinding = undefined;
             }

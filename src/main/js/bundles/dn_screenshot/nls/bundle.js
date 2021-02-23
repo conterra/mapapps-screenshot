@@ -26,7 +26,8 @@ module.exports = {
             selectArea: "Select area",
             drawInfo: "Draw a rectangle into the map",
             removeArea: "Remove area",
-            background: "Hide background"
+            backgroundTitle: "Background options",
+            background: "Ignore background color"
         },
         tool: {
             title: "Screenshot"

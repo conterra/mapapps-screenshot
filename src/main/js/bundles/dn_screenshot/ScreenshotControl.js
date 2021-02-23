@@ -13,100 +13,91 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function initDraw(canvas) {
-    function setMousePosition(e) {
-        var ev = e || window.event; //Moz || IE
-        let mapOffset = canvas.getBoundingClientRect();
-        if (ev.pageX) { //Moz
-            mouse.x = ev.pageX + window.pageXOffset - mapOffset.left;
-            mouse.y = ev.pageY + window.pageYOffset - mapOffset.top;
-        } else if (ev.clientX) { //IE
-            mouse.x = ev.clientX + document.body.scrollLeft - mapOffset.left;
-            mouse.y = ev.clientY + document.body.scrollTop - mapOffset.top;
-        }
-    }
 
-    var mouse = {
-        x: 0,
-        y: 0,
-        startX: 0,
-        startY: 0
-    };
-    var element = null;
-
-    canvas.onmousemove = function (e) {
-        setMousePosition(e);
-        if (element !== null) {
-            element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
-            element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
-            element.style.left = (mouse.x - mouse.startX < 0) ? mouse.x + 'px' : mouse.startX + 'px';
-            element.style.top = (mouse.y - mouse.startY < 0) ? mouse.y + 'px' : mouse.startY + 'px';
-        }
-    }
-
-    canvas.onclick = function (e) {
-        if (element !== null) {
-            canvas.style.cursor = "default";
-            let children = canvas.getElementsByClassName("screenshot_rectangle");
-            if(children.length > 1) {
-                children.forEach((child, i) => {
-                    if(i<children.length-1) {
-                        canvas.removeChild(child);
-                    }
-                })
-            }
-            //save the area (these coordinates are map coordinates)
-            ScreenshotControl.area = {
-                x: element.style.left.substring(0, element.style.left.length - 2),
-                y: element.style.top.substring(0, element.style.top.length - 2),
-                width: element.style.width.substring(0, element.style.width.length - 2),
-                height: element.style.height.substring(0, element.style.height.length - 2)
-            };
-            // dispatch event to indicate that drawing finished
-            const drawFinishedEvent = new Event('drawFinished');
-            window.dispatchEvent(drawFinishedEvent);
-            element = null;
-            canvas.onclick = null;
-            canvas.onmousemove = null;
-            ScreenshotControl.stopPannning = false;
-        } else {
-            mouse.startX = mouse.x;
-            mouse.startY = mouse.y;
-            element = document.createElement('div');
-            element.className = 'screenshot_rectangle'
-            element.style.left = mouse.x + 'px';
-            element.style.top = mouse.y + 'px';
-            canvas.appendChild(element)
-            canvas.style.cursor = "crosshair";
-        }
-    }
-    window.addEventListener("drawAbort", function() {
-        if(canvas.onclick) {
-            canvas.onclick = null;
-        }
-        ScreenshotControl.stopPannning = false;
-    });
-}
 class ScreenshotControl{
-    static area;
-    static stopPanning;
-
     /**
      * This lets the user create a rectangle that is used as the extent of the screenshot. The rectangle is permanently
      * visualized on the map as a graphic using actionService.
      */
     createDrawing(){
         let view = this.model.view
-        ScreenshotControl.stopPannning = true;
-        view.on("drag", function(event) {
-            if(ScreenshotControl.stopPannning){
+        this.stopPanning = true;
+        view.on("drag", (event) => {
+            if(this.stopPanning){
                 event.stopPropagation();
             }
         });
         const root = this._appCtx.getApplicationRootNode();
-        let canvas = root.getElementsByClassName("esri-view-root")
+        let canvas = this.model.view.container
         if(canvas) {
-            initDraw(canvas[0]);
+            var mouse = {
+                x: 0,
+                y: 0,
+                startX: 0,
+                startY: 0
+            };
+            var element = null;
+
+            canvas.onmousemove = (e) => {
+                var ev = e || window.event; //Moz || IE
+                let mapOffset = canvas.getBoundingClientRect();
+                if (ev.pageX) { //Moz
+                    mouse.x = ev.pageX + window.pageXOffset - mapOffset.left;
+                    mouse.y = ev.pageY + window.pageYOffset - mapOffset.top;
+                } else if (ev.clientX) { //IE
+                    mouse.x = ev.clientX + document.body.scrollLeft - mapOffset.left;
+                    mouse.y = ev.clientY + document.body.scrollTop - mapOffset.top;
+                }
+                if (element !== null) {
+                    element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
+                    element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
+                    element.style.left = (mouse.x - mouse.startX < 0) ? mouse.x + 'px' : mouse.startX + 'px';
+                    element.style.top = (mouse.y - mouse.startY < 0) ? mouse.y + 'px' : mouse.startY + 'px';
+                }
+            }
+
+            canvas.onclick = (e) => {
+                if (element !== null) {
+                    canvas.style.cursor = "default";
+                    let children = canvas.getElementsByClassName("screenshot_rectangle");
+                    if(children.length > 1) {
+                        children.forEach((child, i) => {
+                            if(i<children.length-1) {
+                                canvas.removeChild(child);
+                            }
+                        })
+                    }
+                    //save the area (these coordinates are map coordinates)
+                    this.area = {
+                        x: element.style.left.substring(0, element.style.left.length - 2),
+                        y: element.style.top.substring(0, element.style.top.length - 2),
+                        width: element.style.width.substring(0, element.style.width.length - 2),
+                        height: element.style.height.substring(0, element.style.height.length - 2)
+                    };
+                    // dispatch event to indicate that drawing finished
+                    const drawFinishedEvent = new Event('drawFinished');
+                    window.dispatchEvent(drawFinishedEvent);
+                    element = null;
+                    canvas.onclick = null;
+                    canvas.onmousemove = null;
+                    this.stopPanning = false;
+                } else {
+                    mouse.startX = mouse.x;
+                    mouse.startY = mouse.y;
+                    element = document.createElement('div');
+                    element.className = 'screenshot_rectangle'
+                    element.style.left = mouse.x + 'px';
+                    element.style.top = mouse.y + 'px';
+                    canvas.appendChild(element)
+                    canvas.style.cursor = "crosshair";
+                }
+            }
+            window.addEventListener("drawAbort", () => {
+                if(canvas.onclick) {
+                    canvas.onclick = null;
+                }
+                this.stopPanning = false;
+            });
         }
     }
 
@@ -120,7 +111,7 @@ class ScreenshotControl{
             properties = this.properties;
             let area = document.getElementsByClassName("screenshot_rectangle");
             if(area && area.length) {
-                properties.area = ScreenshotControl.area;
+                properties.area = this.area;
             }
         } else {
             properties = this.config;
@@ -160,17 +151,17 @@ class ScreenshotControl{
         // convert from map to screen coordinates
         // (this has to be done right before the screenshot is taken, because the map might have been moved)
         const convertedMinPoint = view.toScreen({
-            x: ScreenshotControl.area.xmin,
-            y: ScreenshotControl.area.ymin,
+            x: this.area.xmin,
+            y: this.area.ymin,
             spatialReference: {
-                wkid: ScreenshotControl.area.wkid
+                wkid: this.area.wkid
             }
         });
         const convertedMaxPoint = view.toScreen({
-            x: ScreenshotControl.area.xmax,
-            y: ScreenshotControl.area.ymax,
+            x: this.area.xmax,
+            y: this.area.ymax,
             spatialReference: {
-                wkid: ScreenshotControl.area.wkid
+                wkid: this.area.wkid
             }
         });
         return {
@@ -180,7 +171,6 @@ class ScreenshotControl{
             height: Math.round(convertedMinPoint.y - convertedMaxPoint.y)
         }
     }
-
 }
 
 export default ScreenshotControl;

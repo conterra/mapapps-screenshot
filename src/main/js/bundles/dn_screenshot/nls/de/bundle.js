@@ -26,7 +26,8 @@ module.exports = {
         selectNew: "Neuen Ausschnitt wählen",
         drawInfo: "zeichnen sie per Mausklick ein Rechteck in die Karte",
         removeArea: "Ausschnitt aufheben",
-        background: "Hintergrund verstecken"
+        backgroundTitle: "Optionen für den Hintergrund",
+        background: "Hintergrundfarbe ignorieren"
     },
     tool: {
         title: "Screenshot"

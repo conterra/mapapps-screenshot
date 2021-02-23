@@ -148,9 +148,9 @@
             "name": "Config",
             "provides": "dn_screenshot.config",
             "properties": {
-                "ignoreBackground": false,
-                "quality": 98,
-                "format": "png"
+                "-ignoreBackground": false,
+                "-quality": 98,
+                "-format": "png"
             },
             "propertiesConstructor": true
         }

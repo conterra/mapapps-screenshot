@@ -30,7 +30,7 @@
                     v-model="captureFullMap"
                     :label="i18n.fullMapExtent"
                     color="success"
-                    @click="deleteArea()"
+                    @change="deleteArea()"
                 />
                 <div v-show="!captureFullMap" class="mb-2">
                     <v-btn-toggle
@@ -81,9 +81,9 @@
                         min="0"
                     />
                 </div>
-                <h4 v-if="basemap == undefined">Background options</h4>
+                <h4 v-if="!basemap">{{ i18n.backgroundTitle }}</h4>
                 <v-checkbox
-                    v-if="basemap == undefined"
+                    v-if="!basemap"
                     v-model="properties.ignoreBackground"
                     :label="i18n.background"
                     hide-details
@@ -129,9 +129,8 @@
                 },
                 captureFullMap: true,
                 possibleFormats: ["png", "jpg"],
-                drawFactory: null,
                 areaDrawn: false,
-                basemap: undefined,
+                basemap: false,
                 toggle_exclusive: undefined
             };
         },
