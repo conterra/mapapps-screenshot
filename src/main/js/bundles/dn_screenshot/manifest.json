@@ -1,7 +1,7 @@
 {
     "name": "dn_screenshot",
     "title": "${bundleName}",
-    "version": "0.0.1",
+    "version": "1.0.2-SNAPSHOT",
     "dependencies": {
         "esri": "^4.6.0",
         "apprt-vue": "^4.6.0",
