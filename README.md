@@ -2,6 +2,9 @@
 
 This bundle provides two tools to take simple or configured screenshots of the map.
 
+## Sample App
+https://demos.conterra.de/mapapps/resources/apps/downloads_screenshot/index.html
+
 ## Installation Guide
 **Requirement: map.apps 4.9.2 or later**
 
