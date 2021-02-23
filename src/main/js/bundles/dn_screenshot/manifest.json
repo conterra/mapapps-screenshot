@@ -41,7 +41,8 @@
                 {
                     "name": "model",
                     "providing": "map-widget.MapWidgetModel"
-                }, {
+                },
+                {
                     "name": "layerFactory",
                     "providing": "map-config-api.LayerFactory"
                 },
@@ -118,7 +119,12 @@
                 {
                     "name": "model",
                     "providing": "map-widget.MapWidgetModel"
-                }, {
+                },
+                {
+                    "name": "basemap",
+                    "providing": "map-basemaps-api.BasemapsModel"
+                },
+                {
                     "name": "layerFactory",
                     "providing": "map-config-api.LayerFactory"
                 },

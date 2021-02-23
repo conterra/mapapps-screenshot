@@ -34,15 +34,11 @@ class ScreenshotUIFactory {
         propertiesToViewBinding.bindTo(props, vm.properties);
         // bind properties and view model
         screenshotToViewBinding.bindTo(this, vm);
+        // bind basemap and vue
+        basemapToViewBinding.bindTo(this.basemap, vm);
 
         // register methods to enable/disable binding
         widget.enableBinding = () => {
-            // bind basemap and vue
-            let temp = {
-                basemap: this.model.map.basemap != undefined
-            }
-            basemapToViewBinding.bindTo(temp, vm);
-
             propertiesToViewBinding.enable().syncToRightNow();
             screenshotToViewBinding.enable().syncToLeftNow();
             basemapToViewBinding.enable().syncToRightNow();
@@ -85,7 +81,9 @@ class ScreenshotUIFactory {
     }
     declareBasemapToVueBinding() {
         return Binding.create()
-            .sync("basemap", ifDefined(), ifDefined());
+            .sync("selectedId" +
+                "" +
+                "", "basemap");
     }
 }
 

@@ -96,7 +96,7 @@ class ScreenshotControl{
     }
 
     abortDrawing() {
-        if(this.canvas.onclick) {
+        if(this.canvas?.onclick) {
             this.canvas.style.cursor = "default";
             this.canvas.onclick = null;
         }

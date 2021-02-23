@@ -81,9 +81,9 @@
                         min="0"
                     />
                 </div>
-                <h4 v-if="!basemap">{{ i18n.backgroundTitle }}</h4>
+                <h4 v-if="basemap == undefined">{{ i18n.backgroundTitle }}</h4>
                 <v-checkbox
-                    v-if="!basemap"
+                    v-if="basemap  == undefined"
                     v-model="properties.ignoreBackground"
                     :label="i18n.background"
                     hide-details
@@ -130,7 +130,7 @@
                 captureFullMap: true,
                 possibleFormats: ["png", "jpg"],
                 areaDrawn: false,
-                basemap: false,
+                basemap: undefined,
                 toggle_exclusive: undefined
             };
         },
