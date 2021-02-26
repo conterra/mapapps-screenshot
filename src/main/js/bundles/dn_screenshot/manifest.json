@@ -9,7 +9,6 @@
         "map-actions": "^4.6.0",
         "mapdraw-api": "^4.6.0"
     },
-    "main": "",
     "CSS-Themes-Extension": [{
         "name": "*",
         "files": ["styles/styles.css"]
