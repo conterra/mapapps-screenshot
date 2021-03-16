@@ -15,9 +15,10 @@
  */
 import {declare} from "apprt-core/Mutable";
 
-const Config = declare({
-    "ignoreBackground": undefined,
-    "quality": undefined,
-    "format": undefined
+export default declare({
+
+    ignoreBackground: undefined,
+    quality: undefined,
+    format: undefined
+
 });
-export default Config;
