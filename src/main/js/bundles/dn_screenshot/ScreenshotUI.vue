@@ -54,7 +54,9 @@
                     >
                         {{ i18n.removeArea }}
                     </v-btn>
-                    <p v-if="toggle_exclusive!=undefined">{{ i18n.drawInfo }}</p>
+                    <p v-if="toggle_exclusive!==undefined">
+                        {{ i18n.drawInfo }}
+                    </p>
                 </div>
                 <h4>{{ i18n.fileFormat }}</h4>
                 <v-radio-group
@@ -81,9 +83,11 @@
                         min="0"
                     />
                 </div>
-                <h4 v-if="basemap == undefined">{{ i18n.backgroundTitle }}</h4>
+                <h4 v-if="basemap === undefined">
+                    {{ i18n.backgroundTitle }}
+                </h4>
                 <v-checkbox
-                    v-if="basemap  == undefined"
+                    v-if="basemap === undefined"
                     v-model="properties.ignoreBackground"
                     :label="i18n.background"
                     hide-details
@@ -111,56 +115,56 @@
 </template>
 
 <script>
-import Bindable from "apprt-vue/mixins/Bindable";
+    import Bindable from "apprt-vue/mixins/Bindable";
 
-export default {
-    mixins: [Bindable],
-    created() {
-        window.addEventListener('drawFinished', this.handleDrawFinished);
-    },
-    destroyed() {
-        window.removeEventListener('drawFinished', this.handleDrawFinished);
-    },
-    data() {
-        return {
-            properties: {
-                format: "png",
-                quality: 98,
-                ignoreBackground: false
-            },
-            captureFullMap: true,
-            possibleFormats: ["png", "jpg"],
-            areaDrawn: false,
-            basemap: undefined,
-            toggle_exclusive: undefined
-        };
-    },
-    computed: {
-        selectAreaLabel() {
-            return this.areaDrawn ? this.i18n.selectNew : this.i18n.selectArea
-        }
-    },
-    methods: {
-        takeScreenshot() {
-            this.$emit('takeScreenshot');
+    export default {
+        mixins: [Bindable],
+        data() {
+            return {
+                properties: {
+                    format: "png",
+                    quality: 98,
+                    ignoreBackground: false
+                },
+                captureFullMap: true,
+                possibleFormats: ["png", "jpg"],
+                areaDrawn: false,
+                basemap: undefined,
+                toggle_exclusive: undefined
+            };
         },
-        createDrawing() {
-            if (this.toggle_exclusive == undefined) {
-                this.$emit('drawArea');
-            } else {
-                this.$emit('drawAbort');
+        computed: {
+            selectAreaLabel() {
+                return this.areaDrawn ? this.i18n.selectNew : this.i18n.selectArea
             }
         },
-        deleteArea() {
-            this.$emit('deleteArea');
-            this.$emit('drawAbort');
-            this.areaDrawn = false;
-            this.toggle_exclusive = undefined;
+        created() {
+            window.addEventListener('drawFinished', this.handleDrawFinished);
         },
-        handleDrawFinished() {
-            this.areaDrawn = true;
-            this.toggle_exclusive = undefined;
+        destroyed() {
+            window.removeEventListener('drawFinished', this.handleDrawFinished);
+        },
+        methods: {
+            takeScreenshot() {
+                this.$emit('takeScreenshot');
+            },
+            createDrawing() {
+                if (this.toggle_exclusive === undefined) {
+                    this.$emit('drawArea');
+                } else {
+                    this.$emit('drawAbort');
+                }
+            },
+            deleteArea() {
+                this.$emit('deleteArea');
+                this.$emit('drawAbort');
+                this.areaDrawn = false;
+                this.toggle_exclusive = undefined;
+            },
+            handleDrawFinished() {
+                this.areaDrawn = true;
+                this.toggle_exclusive = undefined;
+            }
         }
     }
-}
 </script>
