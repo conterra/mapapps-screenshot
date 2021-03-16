@@ -54,7 +54,7 @@
                     >
                         {{ i18n.removeArea }}
                     </v-btn>
-                    <p v-if="toggle_exclusive!=undefined">{{i18n.drawInfo }}</p>
+                    <p v-if="toggle_exclusive!=undefined">{{ i18n.drawInfo }}</p>
                 </div>
                 <h4>{{ i18n.fileFormat }}</h4>
                 <v-radio-group
@@ -90,7 +90,7 @@
                     color="success"
                 />
             </div>
-            <v-divider />
+            <v-divider/>
             <div class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink mt-3  px-3">
                 <v-btn
                     color="primary"
@@ -111,55 +111,56 @@
 </template>
 
 <script>
-    import Bindable from "apprt-vue/mixins/Bindable";
-    export default {
-        mixins: [Bindable],
-        created () {
-            window.addEventListener('drawFinished', this.handleDrawFinished);
-        },
-        destroyed () {
-            window.removeEventListener('drawFinished', this.handleDrawFinished);
-        },
-        data() {
-            return {
-                properties: {
-                    format: "png",
-                    quality: 98,
-                    ignoreBackground: false
-                },
-                captureFullMap: true,
-                possibleFormats: ["png", "jpg"],
-                areaDrawn: false,
-                basemap: undefined,
-                toggle_exclusive: undefined
-            };
-        },
-        computed: {
-            selectAreaLabel(){
-                return this.areaDrawn? this.i18n.selectNew : this.i18n.selectArea
-            }
-        },
-        methods: {
-            takeScreenshot() {
-                this.$emit('takeScreenshot');
+import Bindable from "apprt-vue/mixins/Bindable";
+
+export default {
+    mixins: [Bindable],
+    created() {
+        window.addEventListener('drawFinished', this.handleDrawFinished);
+    },
+    destroyed() {
+        window.removeEventListener('drawFinished', this.handleDrawFinished);
+    },
+    data() {
+        return {
+            properties: {
+                format: "png",
+                quality: 98,
+                ignoreBackground: false
             },
-            createDrawing(){
-                if(this.toggle_exclusive==undefined) {
-                    this.$emit('drawArea');
-                } else {
-                    this.$emit('drawAbort');
-                }
-            },
-            deleteArea(){
-                this.$emit('deleteArea');
+            captureFullMap: true,
+            possibleFormats: ["png", "jpg"],
+            areaDrawn: false,
+            basemap: undefined,
+            toggle_exclusive: undefined
+        };
+    },
+    computed: {
+        selectAreaLabel() {
+            return this.areaDrawn ? this.i18n.selectNew : this.i18n.selectArea
+        }
+    },
+    methods: {
+        takeScreenshot() {
+            this.$emit('takeScreenshot');
+        },
+        createDrawing() {
+            if (this.toggle_exclusive == undefined) {
+                this.$emit('drawArea');
+            } else {
                 this.$emit('drawAbort');
-                this.areaDrawn = false;
-                this.toggle_exclusive = undefined;
-            },
-            handleDrawFinished(){
-                this.areaDrawn = true;
-                this.toggle_exclusive=undefined;
             }
+        },
+        deleteArea() {
+            this.$emit('deleteArea');
+            this.$emit('drawAbort');
+            this.areaDrawn = false;
+            this.toggle_exclusive = undefined;
+        },
+        handleDrawFinished() {
+            this.areaDrawn = true;
+            this.toggle_exclusive = undefined;
         }
     }
+}
 </script>

@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-class ScreenshotControl{
+class ScreenshotControl {
     /**
      * This lets the user create a rectangle that is used as the extent of the screenshot. The rectangle is permanently
      * visualized on the map as a graphic using actionService.
      */
-    createDrawing(){
+    createDrawing() {
         let view = this.model.view
         this.stopPanning = true;
         view.on("drag", (event) => {
-            if(this.stopPanning){
+            if (this.stopPanning) {
                 event.stopPropagation();
             }
         });
         const root = this._appCtx.getApplicationRootNode();
         this.canvas = this.model.view.container
-        if(this.canvas) {
+        if (this.canvas) {
             var mouse = {
                 x: 0,
                 y: 0,
@@ -60,9 +60,9 @@ class ScreenshotControl{
                 if (element !== null) {
                     this.canvas.style.cursor = "default";
                     let children = this.canvas.getElementsByClassName("screenshot_rectangle");
-                    if(children.length > 1) {
+                    if (children.length > 1) {
                         children.forEach((child, i) => {
-                            if(i<children.length-1) {
+                            if (i < children.length - 1) {
                                 this.canvas.removeChild(child);
                             }
                         })
@@ -96,7 +96,7 @@ class ScreenshotControl{
     }
 
     abortDrawing() {
-        if(this.canvas?.onclick) {
+        if (this.canvas?.onclick) {
             this.canvas.style.cursor = "default";
             this.canvas.onclick = null;
         }
@@ -112,7 +112,7 @@ class ScreenshotControl{
         if (this.properties) {
             properties = this.properties;
             let area = document.getElementsByClassName("screenshot_rectangle");
-            if(area && area.length) {
+            if (area && area.length) {
                 properties.area = this.area;
             }
         } else {
@@ -122,7 +122,7 @@ class ScreenshotControl{
         view.takeScreenshot(properties).then((screenshot) => {
             var link = document.createElement('a');
             let format = "png";
-            if(properties.format) {
+            if (properties.format) {
                 format = properties.format;
             }
             link.download = this._appCtx.applicationName + "_screenshot." + format;
@@ -137,7 +137,7 @@ class ScreenshotControl{
     deleteArea() {
         this.properties.area = undefined;
         let areas = document.getElementsByClassName("screenshot_rectangle");
-        if(areas && areas.length) {
+        if (areas && areas.length) {
             areas.forEach((area) => {
                 area.remove();
             })

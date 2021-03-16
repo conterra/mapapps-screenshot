@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- .ctAppRoot .screenshot_rectangle {
+.ctAppRoot .screenshot_rectangle {
     border-color: #12a5f4;
     border-width: 2px;
     border-style: solid;
     position: absolute;
     pointer-events: none;
 }
+
 .ctAppRoot.everlasting .screenshot_rectangle {
     border-color: #12a5f4;;
 }

@@ -17,7 +17,7 @@ import Binding from "apprt-binding/Binding";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import ScreenshotUI from "./ScreenshotUI.vue";
-import { debounceOrCancel, ifDefined } from "apprt-binding/Transformers";
+import {debounceOrCancel, ifDefined} from "apprt-binding/Transformers";
 
 class ScreenshotUIFactory {
 
@@ -68,6 +68,7 @@ class ScreenshotUIFactory {
 
         return widget;
     }
+
     declarePropertiesToVueBinding() {
         return Binding.create()
             .sync("format", ifDefined())
@@ -75,10 +76,12 @@ class ScreenshotUIFactory {
             .sync("quality", ifDefined())
             .sync("ignoreBackground", ifDefined());
     }
+
     declareScreenshotToVueBinding() {
         return Binding.create()
             .sync("properties", ifDefined(), ifDefined());
     }
+
     declareBasemapToVueBinding() {
         return Binding.create()
             .sync("selectedId" +

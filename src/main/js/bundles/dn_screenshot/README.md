@@ -1,9 +1,11 @@
 # dn_screenshot
-This bundle makes it possible to take screenshots of you current map view. It provides two tools.
-One that takes screenshots based on the configuration in the app.json/manifest.json.
-The second one also provides a user interface for configuration.
+
+This bundle makes it possible to take screenshots of you current map view. It provides two tools. One that takes
+screenshots based on the configuration in the app.json/manifest.json. The second one also provides a user interface for
+configuration.
 
 ## Usage
+
 **Requirement: map.apps 4.9.2 or later**
 
 1. First you need to add the bundle screenshot to your app.
@@ -23,6 +25,7 @@ To make the functions of this bundle available to the user, the following tool c
 This configures the ScreenshotTool.
 
 #### Sample configuration
+
 ```json
 "Config": {
     "ignoreBackground": false,

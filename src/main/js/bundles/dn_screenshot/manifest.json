@@ -9,31 +9,37 @@
         "map-actions": "^4.6.0",
         "mapdraw-api": "^4.6.0"
     },
-    "CSS-Themes-Extension": [{
-        "name": "*",
-        "files": ["styles/styles.css"]
-    }],
+    "CSS-Themes-Extension": [
+        {
+            "name": "*",
+            "files": [
+                "styles/styles.css"
+            ]
+        }
+    ],
     "productName": "devnet-mapapps-screenshot",
-    "layout-widgets": [{
-        "widgetRole": "screenshot",
-        "template": "seasons",
-        "window": {
-            "autofocus": false,
-            "dockTool": "screenshotToggleTool",
-            "minimizeOnClose": true,
-            "marginBox": {
-				"l": 20,
-				"t": 125,
-				"w": 320,
-				"h": 425
-            },
-            "minSize": {
-                "h": 425
+    "layout-widgets": [
+        {
+            "widgetRole": "screenshot",
+            "template": "seasons",
+            "window": {
+                "autofocus": false,
+                "dockTool": "screenshotToggleTool",
+                "minimizeOnClose": true,
+                "marginBox": {
+                    "l": 20,
+                    "t": 125,
+                    "w": 320,
+                    "h": 425
+                },
+                "minSize": {
+                    "h": 425
+                }
             }
         }
-    }
     ],
-    "components": [{
+    "components": [
+        {
             "name": "ScreenshotControl",
             "provides": "tools.ScreenshotControl",
             "references": [
@@ -56,7 +62,8 @@
                 {
                     "name": "config",
                     "providing": "dn_screenshot.config"
-                }]
+                }
+            ]
         },
         {
             "name": "ScreenshotTool",
@@ -76,13 +83,16 @@
                 },
                 "clickHandler": "screenshot"
             },
-            "references":[{
-                "name": "handlerScope",
-                "providing": "tools.ScreenshotControl"
-            },{
-                "name": "config",
-                "providing": "dn_screenshot.config"
-            }]
+            "references": [
+                {
+                    "name": "handlerScope",
+                    "providing": "tools.ScreenshotControl"
+                },
+                {
+                    "name": "config",
+                    "providing": "dn_screenshot.config"
+                }
+            ]
         },
         {
             "name": "ScreenshotToggleTool",
@@ -103,13 +113,19 @@
                 "activateHandler": "enableBinding",
                 "deactivateHandler": "disableBinding"
             },
-            "references":[{
-                "name": "handlerScope",
-                "providing": "dn_screenshot.Widget"
-            }]
-        }, {
+            "references": [
+                {
+                    "name": "handlerScope",
+                    "providing": "dn_screenshot.Widget"
+                }
+            ]
+        },
+        {
             "name": "ScreenshotUIFactory",
-            "provides": ["dijit.Widget", "dn_screenshot.Widget"],
+            "provides": [
+                "dijit.Widget",
+                "dn_screenshot.Widget"
+            ],
             "instanceFactory": true,
             "properties": {
                 "widgetRole": "screenshot"
