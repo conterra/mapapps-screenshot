@@ -19,7 +19,7 @@
     <v-container
         fluid
         fill-height
-        class="ct-screenshot-widget pa-0"
+        class="pa-0"
     >
         <div class="ct-flex-container ct-flex ct-flex-container--column fullWidthAndHeight padding-default">
             <div
@@ -29,10 +29,13 @@
                 <v-checkbox
                     v-model="captureFullMap"
                     :label="i18n.fullMapExtent"
-                    color="success"
+                    color="primary"
                     @change="deleteArea()"
                 />
-                <div v-show="!captureFullMap" class="mb-2">
+                <div
+                    v-show="!captureFullMap"
+                    class="mb-2"
+                >
                     <v-btn-toggle
                         v-model="toggle_exclusive"
                     >
@@ -68,7 +71,7 @@
                         :key="form"
                         :label="form"
                         :value="form"
-                        color="success"
+                        color="primary"
                     />
                 </v-radio-group>
                 <div
@@ -91,11 +94,11 @@
                     v-model="properties.ignoreBackground"
                     :label="i18n.background"
                     hide-details
-                    color="success"
+                    color="primary"
                 />
             </div>
             <v-divider/>
-            <div class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink mt-3  px-3">
+            <div class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink mt-3 px-3">
                 <v-btn
                     color="primary"
                     block

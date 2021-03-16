@@ -28,7 +28,9 @@ export default class ScreenshotUIFactory {
         const vm = new Vue(ScreenshotUI);
         vm.i18n = this._i18n.get().ui;
         const props = this.config;
-        const widget = VueDijit(vm);
+        const widget = VueDijit(vm, {
+            class: "ct-screenshot-widget"
+        });
 
         // bind properties and view model
         propertiesToViewBinding.bindTo(props, vm.properties);
