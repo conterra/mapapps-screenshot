@@ -17,9 +17,9 @@ import Binding from "apprt-binding/Binding";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import ScreenshotUI from "./ScreenshotUI.vue";
-import {debounceOrCancel, ifDefined} from "apprt-binding/Transformers";
+import {ifDefined} from "apprt-binding/Transformers";
 
-class ScreenshotUIFactory {
+export default class ScreenshotUIFactory {
 
     createInstance() {
         let propertiesToViewBinding = this._propertiesToViewBinding = this.declarePropertiesToVueBinding();
@@ -89,5 +89,3 @@ class ScreenshotUIFactory {
                 "", "basemap");
     }
 }
-
-export default ScreenshotUIFactory;
