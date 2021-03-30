@@ -1,6 +1,7 @@
 {
     "name": "dn_screenshot",
     "title": "${bundleName}",
+    "description": "${bundleDescription}",
     "version": "1.0.4-SNAPSHOT",
     "dependencies": {
         "esri": "^4.6.0",
