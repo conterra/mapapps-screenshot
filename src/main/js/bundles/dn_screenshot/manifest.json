@@ -1,8 +1,10 @@
 {
     "name": "dn_screenshot",
+    "version": "1.0.4-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
-    "version": "1.0.4-SNAPSHOT",
+    "vendor": "con terra GmbH",
+    "productName": "devnet-mapapps-screenshot",
     "dependencies": {
         "esri": "^4.6.0",
         "apprt-vue": "^4.6.0",
@@ -18,12 +20,11 @@
             ]
         }
     ],
-    "productName": "devnet-mapapps-screenshot",
     "layout-widgets": [
         {
-            "widgetRole": "screenshot",
-            "template": "seasons",
+            "widgetRole": "screenshotWidget",
             "window": {
+                "title": "${ui.windowTitle}",
                 "autofocus": false,
                 "dockTool": "screenshotToggleTool",
                 "minimizeOnClose": true,
@@ -42,7 +43,7 @@
     "components": [
         {
             "name": "ScreenshotControl",
-            "provides": "tools.ScreenshotControl",
+            "provides": "dn_screenshot.ScreenshotControl",
             "references": [
                 {
                     "name": "model",
@@ -62,12 +63,12 @@
                 },
                 {
                     "name": "config",
-                    "providing": "dn_screenshot.config"
+                    "providing": "dn_screenshot.Config"
                 }
             ]
         },
         {
-            "name": "ScreenshotTool",
+            "name": "DirectScreenshotTool",
             "impl": "ct/tools/Tool",
             "provides": [
                 "ct.tools.Tool"
@@ -75,7 +76,8 @@
             "propertiesConstructor": true,
             "properties": {
                 "id": "screenshotTool",
-                "title": "${tool.title}",
+                "title": "${directScreenshotTool.title}",
+                "tooltip": "${directScreenshotTool.tooltip}",
                 "iconClass": "icon-doc-image-landscape",
                 "toolRole": "toolset",
                 "togglable": false,
@@ -87,11 +89,11 @@
             "references": [
                 {
                     "name": "handlerScope",
-                    "providing": "tools.ScreenshotControl"
+                    "providing": "dn_screenshot.ScreenshotControl"
                 },
                 {
                     "name": "config",
-                    "providing": "dn_screenshot.config"
+                    "providing": "dn_screenshot.Config"
                 }
             ]
         },
@@ -104,7 +106,8 @@
             "propertiesConstructor": true,
             "properties": {
                 "id": "screenshotToggleTool",
-                "title": "${ui.windowTitle}",
+                "title": "${screenshotToggleTool.title}",
+                "tooltip": "${screenshotToggleTool.tooltip}",
                 "iconClass": "icon-doc-image-landscape",
                 "toolRole": "toolset",
                 "togglable": true,
@@ -129,7 +132,7 @@
             ],
             "instanceFactory": true,
             "properties": {
-                "widgetRole": "screenshot"
+                "widgetRole": "screenshotWidget"
             },
             "references": [
                 {
@@ -158,17 +161,17 @@
                 },
                 {
                     "name": "screenshotControl",
-                    "providing": "tools.ScreenshotControl"
+                    "providing": "dn_screenshot.ScreenshotControl"
                 },
                 {
                     "name": "config",
-                    "providing": "dn_screenshot.config"
+                    "providing": "dn_screenshot.Config"
                 }
             ]
         },
         {
             "name": "Config",
-            "provides": "dn_screenshot.config",
+            "provides": "dn_screenshot.Config",
             "properties": {
                 "-ignoreBackground": false,
                 "-quality": 98,

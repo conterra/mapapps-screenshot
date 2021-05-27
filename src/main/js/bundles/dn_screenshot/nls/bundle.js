@@ -17,6 +17,14 @@ module.exports = {
     root: ({
         bundleName: "screenshot",
         bundleDescription: "take and configure screenshots of the map",
+        directScreenshotTool: {
+            title: "Take Screenshot",
+            tooltip: "Take Screenshot"
+        },
+        screenshotToggleTool: {
+            title: "Screenshot Configuration",
+            tooltip: "Screenshot Configuration"
+        },
         ui: {
             windowTitle: "Screenshot Configuration",
             areaTitel: "Area of the Screenshot",
@@ -28,9 +36,6 @@ module.exports = {
             removeArea: "Remove area",
             backgroundTitle: "Background options",
             background: "Ignore background color"
-        },
-        tool: {
-            title: "Screenshot"
         }
     }),
     "de": true

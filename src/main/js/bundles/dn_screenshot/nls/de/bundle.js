@@ -16,6 +16,14 @@
 module.exports = {
     bundleName: "screenshot",
     bundleDescription: "Aufnehmen und Konfigurieren von Screenshots",
+    directScreenshotTool: {
+        title: "Screenshot erstellen",
+        tooltip: "Screenshot erstellen"
+    },
+    screenshotToggleTool: {
+        title: "Screenshot Konfiguration",
+        tooltip: "Screenshot Konfiguration"
+    },
     ui: {
         windowTitle: "Screenshot Konfiguration",
         fullMapExtent: "Vollständiger Kartenausschnitt",
@@ -28,8 +36,5 @@ module.exports = {
         removeArea: "Ausschnitt aufheben",
         backgroundTitle: "Optionen für den Hintergrund",
         background: "Hintergrundfarbe ignorieren"
-    },
-    tool: {
-        title: "Screenshot"
     }
 };
