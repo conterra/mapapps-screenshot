@@ -60,7 +60,7 @@ export default class ScreenshotControl {
                 ignoreBackground: screenshotModel.ignoreBackground
             }
             const view = this._mapWidgetModel.view;
-            view.takeScreenshot(screenshotModel).then((screenshot) => {
+            view.takeScreenshot(options).then((screenshot) => {
                 this._highlightArea();
                 const link = document.createElement('a');
                 let format = "png";
