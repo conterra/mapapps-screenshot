@@ -116,10 +116,6 @@
                 {
                     "name": "handlerScope",
                     "providing": "dn_screenshot.ScreenshotControl"
-                },
-                {
-                    "name": "config",
-                    "providing": "dn_screenshot.ScreenshotModel"
                 }
             ]
         },
