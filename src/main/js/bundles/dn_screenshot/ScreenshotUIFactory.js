@@ -17,13 +17,11 @@ import Binding from "apprt-binding/Binding";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import ScreenshotUI from "./ScreenshotUI.vue";
-import {ifDefined} from "apprt-binding/Transformers";
 
 export default class ScreenshotUIFactory {
 
     createInstance() {
         let propertiesToViewBinding = this.declarePropertiesToVueBinding();
-        let screenshotToViewBinding = this.declareScreenshotToVueBinding();
         let basemapToViewBinding = this.declareBasemapToVueBinding();
         const vm = new Vue(ScreenshotUI);
         vm.i18n = this._i18n.get().ui;
@@ -33,34 +31,29 @@ export default class ScreenshotUIFactory {
         });
 
         // bind properties and view model
-        propertiesToViewBinding.bindTo(screenshotModel, vm.properties);
-        // bind properties and view model
-        screenshotToViewBinding.bindTo(this, vm);
+        propertiesToViewBinding.bindTo(screenshotModel, vm);
         // bind basemap and vue
-        basemapToViewBinding.bindTo(this.basemap, vm);
+        basemapToViewBinding.bindTo(this._basemapsModel, vm);
 
         // register methods to enable/disable binding
         widget.enableBinding = () => {
             propertiesToViewBinding.enable().syncToRightNow();
-            screenshotToViewBinding.enable().syncToLeftNow();
             basemapToViewBinding.enable().syncToRightNow();
-            vm.$on("drawAbort", () => {
-                this._screenshotControl.abortDrawing();
+            vm.$on("draw-area", () => {
+                this._screenshotControl.startDrawing();
             });
-            vm.$on("drawArea", () => {
-                this._screenshotControl.createDrawing();
+            vm.$on("delete-area", () => {
+                this._screenshotControl.deleteArea();
             });
-            vm.$on("takeScreenshot", () => {
+            vm.$on("take-screenshot", () => {
                 this._screenshotControl.takeScreenshot();
-            });
-            vm.$on("deleteArea", () => {
-                this._screenshotControl.deleteArea()
             });
         }
 
         widget.disableBinding = () => {
+            this._screenshotControl.stopDrawing();
+            this._screenshotControl.deleteArea();
             propertiesToViewBinding?.disable();
-            screenshotToViewBinding?.disable();
             basemapToViewBinding?.disable();
             vm.$off();
         }
@@ -70,8 +63,6 @@ export default class ScreenshotUIFactory {
             remove() {
                 propertiesToViewBinding?.unbind();
                 propertiesToViewBinding = undefined;
-                screenshotToViewBinding?.unbind();
-                screenshotToViewBinding = undefined;
                 basemapToViewBinding?.unbind();
                 basemapToViewBinding = undefined;
                 widget.enableBinding = widget.disableBinding = undefined;
@@ -83,19 +74,11 @@ export default class ScreenshotUIFactory {
 
     declarePropertiesToVueBinding() {
         return Binding.create()
-            .sync("format", ifDefined())
-            .sync("area", ifDefined())
-            .sync("quality", ifDefined())
-            .sync("ignoreBackground", ifDefined());
-    }
-
-    declareScreenshotToVueBinding() {
-        return Binding.create()
-            .sync("properties", ifDefined(), ifDefined());
+            .syncAll("format", "area", "quality", "ignoreBackground");
     }
 
     declareBasemapToVueBinding() {
         return Binding.create()
-            .sync("selectedId", "basemap");
+            .sync("selectedId", "selectedBasemapId");
     }
 }

@@ -26,15 +26,14 @@ module.exports = {
     },
     ui: {
         windowTitle: "Screenshot Konfiguration",
-        fullMapExtent: "Vollständiger Kartenausschnitt",
         areaTitle: "Kartenausschnitt des Screenshots",
+        fullMapExtent: "Vollständiger Kartenausschnitt",
         fileFormat: "Bilddateiformat",
         quality: "Qualität",
-        selectArea: "Ausschnitt wählen",
-        selectNew: "Neuen Ausschnitt wählen",
-        drawInfo: "zeichnen sie per Mausklick ein Rechteck in die Karte",
-        removeArea: "Ausschnitt aufheben",
+        drawArea: "Kartenausschnitt wählen",
+        deleteArea: "Kartenausschnitt zurücksetzen",
         backgroundTitle: "Optionen für den Hintergrund",
-        background: "Hintergrundfarbe ignorieren"
+        background: "Hintergrundfarbe ignorieren",
+        save: "Screenshot speichern"
     }
 };

@@ -9,8 +9,8 @@
         "esri": "^4.6.0",
         "apprt-vue": "^4.6.0",
         "apprt-vuetify": "^4.6.0",
-        "map-actions": "^4.6.0",
-        "mapdraw-api": "^4.6.0"
+        "mapdraw-api": "^4.6.0",
+        "highlights": "^4.6.0"
     },
     "CSS-Themes-Extension": [
         {
@@ -84,12 +84,16 @@
                     "providing": "ct.framework.api.ApplicationContext"
                 },
                 {
-                    "name": "_actionService",
-                    "providing": "map-actions.ActionService"
+                    "name": "_highlighter",
+                    "providing": "highlights.HighlightService"
                 },
                 {
                     "name": "_screenshotModel",
                     "providing": "dn_screenshot.ScreenshotModel"
+                },
+                {
+                    "name": "_drawing",
+                    "providing": "mapdraw-api.DefaultMapDrawing"
                 }
             ]
         },

@@ -27,15 +27,15 @@ module.exports = {
         },
         ui: {
             windowTitle: "Screenshot Configuration",
-            areaTitel: "Area of the Screenshot",
+            areaTitle: "Area of the Screenshot",
             fullMapExtent: "Full Map Extent",
             fileFormat: "Image file format",
             quality: "Quality",
-            selectArea: "Select area",
-            drawInfo: "Draw a rectangle into the map",
-            removeArea: "Remove area",
+            drawArea: "Select area",
+            deleteArea: "Remove area",
             backgroundTitle: "Background options",
-            background: "Ignore background color"
+            background: "Ignore background color",
+            save: "Save Screenshot"
         }
     }),
     "de": true

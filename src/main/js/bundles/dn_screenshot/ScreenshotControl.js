@@ -13,157 +13,120 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import async from "apprt-core/async";
+
 export default class ScreenshotControl {
     /**
-     * This lets the user create a rectangle that is used as the extent of the screenshot. The rectangle is permanently
-     * visualized on the map as a graphic using actionService.
+     * This lets the user draw a rectangle that is used as the area of the screenshot. The rectangle is permanently
+     * visualized on the map as a graphic using the HighlightService.
      */
-    createDrawing() {
-        const view = this._mapWidgetModel.view
-        this.stopPanning = true;
-        view.on("drag", (event) => {
-            if (this.stopPanning) {
-                event.stopPropagation();
-            }
+    startDrawing() {
+        const drawing = this._drawing;
+        drawing.mode = "rectangle";
+
+        this._drawListener = drawing.watch("graphic", evt => {
+            const graphic = evt.value;
+            const geometry = graphic.geometry;
+            this._highlightArea(geometry);
+            const screenshotModel = this._screenshotModel;
+            screenshotModel.area = this._getArea(geometry);
+            this.stopDrawing();
         });
-        this.canvas = this._mapWidgetModel.view.container;
-        if (this.canvas) {
-            const mouse = {
-                x: 0,
-                y: 0,
-                startX: 0,
-                startY: 0
-            };
-            let element = null;
 
-            this.canvas.onmousemove = (e) => {
-                const ev = e || window.event; //Moz || IE
-                const mapOffset = this.canvas.getBoundingClientRect();
-                if (ev.pageX) { //Moz
-                    mouse.x = ev.pageX + window.pageXOffset - mapOffset.left;
-                    mouse.y = ev.pageY + window.pageYOffset - mapOffset.top;
-                } else if (ev.clientX) { //IE
-                    mouse.x = ev.clientX + document.body.scrollLeft - mapOffset.left;
-                    mouse.y = ev.clientY + document.body.scrollTop - mapOffset.top;
-                }
-                if (element !== null) {
-                    element.style.width = Math.abs(mouse.x - mouse.startX) + 'px';
-                    element.style.height = Math.abs(mouse.y - mouse.startY) + 'px';
-                    element.style.left = (mouse.x - mouse.startX < 0) ? mouse.x + 'px' : mouse.startX + 'px';
-                    element.style.top = (mouse.y - mouse.startY < 0) ? mouse.y + 'px' : mouse.startY + 'px';
-                }
-            }
-
-            this.canvas.onclick = (e) => {
-                if (element !== null) {
-                    this.canvas.style.cursor = "default";
-                    const children = this.canvas.getElementsByClassName("screenshot_rectangle");
-                    if (children.length > 1) {
-                        children.forEach((child, i) => {
-                            if (i < children.length - 1) {
-                                this.canvas.removeChild(child);
-                            }
-                        })
-                    }
-                    //save the area (these coordinates are map coordinates)
-                    this.area = {
-                        x: element.style.left.substring(0, element.style.left.length - 2),
-                        y: element.style.top.substring(0, element.style.top.length - 2),
-                        width: element.style.width.substring(0, element.style.width.length - 2),
-                        height: element.style.height.substring(0, element.style.height.length - 2)
-                    };
-                    // dispatch event to indicate that drawing finished
-                    const drawFinishedEvent = new Event('drawFinished');
-                    window.dispatchEvent(drawFinishedEvent);
-                    element = null;
-                    this.canvas.onclick = null;
-                    this.canvas.onmousemove = null;
-                    this.stopPanning = false;
-                } else {
-                    mouse.startX = mouse.x;
-                    mouse.startY = mouse.y;
-                    element = document.createElement('div');
-                    element.className = 'screenshot_rectangle'
-                    element.style.left = mouse.x + 'px';
-                    element.style.top = mouse.y + 'px';
-                    this.canvas.appendChild(element)
-                    this.canvas.style.cursor = "crosshair";
-                }
-            }
-        }
+        drawing.active = true;
     }
 
-    abortDrawing() {
-        if (this.canvas?.onclick) {
-            this.canvas.style.cursor = "default";
-            this.canvas.onclick = null;
+    stopDrawing() {
+        const drawing = this._drawing;
+        drawing.active = false;
+        const drawListener = this._drawListener;
+        this._drawListener = undefined;
+        if (drawListener) {
+            drawListener.remove();
         }
-        this.stopPanning = false;
     }
 
     /**
      * This takes a screenshot.
      */
     takeScreenshot() {
-        const screenshotModel = this._screenshotModel;
-        const area = document.getElementsByClassName("screenshot_rectangle");
-        if (area && area.length) {
-            screenshotModel.area = this.area;
-        }
-
-        const view = this._mapWidgetModel.view;
-        view.takeScreenshot(screenshotModel).then((screenshot) => {
-            const link = document.createElement('a');
-            let format = "png";
-            if (screenshotModel.format) {
-                format = screenshotModel.format;
+        this._clearHighlight();
+        async(() => {
+            const screenshotModel = this._screenshotModel;
+            const options  = {
+                format: screenshotModel.format,
+                quality: screenshotModel.quality,
+                area: screenshotModel.area,
+                ignoreBackground: screenshotModel.ignoreBackground
             }
-            link.download = this._appCtx.applicationName + "_screenshot." + format;
-            link.href = screenshot.dataUrl;
-            link.click();
-        });
+            const view = this._mapWidgetModel.view;
+            view.takeScreenshot(screenshotModel).then((screenshot) => {
+                this._highlightArea();
+                const link = document.createElement('a');
+                let format = "png";
+                if (screenshotModel.format) {
+                    format = screenshotModel.format;
+                }
+                link.download = this._appCtx.applicationName + "_screenshot." + format;
+                link.href = screenshot.dataUrl;
+                link.click();
+            });
+        }, 100);
     }
 
     /**
      * This deletes the area from the properties and removes the corresponding graphic
      */
     deleteArea() {
+        this._lastHighlightGeometry = undefined;
         this._screenshotModel.area = undefined;
-        const areas = document.getElementsByClassName("screenshot_rectangle");
-        if (areas && areas.length) {
-            areas.forEach((area) => {
-                area.remove();
-            })
-        }
+        this._clearHighlight();
     }
 
     /**
      *
-     * @param view
+     * @param geometry
      * @returns {{x: number, width: number, y: number, height: number}}
      */
-    static createArea(view) {
-        // convert from map to screen coordinates
-        // (this has to be done right before the screenshot is taken, because the map might have been moved)
-        const convertedMinPoint = view.toScreen({
-            x: this.area.xmin,
-            y: this.area.ymin,
-            spatialReference: {
-                wkid: this.area.wkid
-            }
+    _getArea(geometry) {
+        const view = this._mapWidgetModel.view;
+        const screenPoint1 = view.toScreen({
+            x: geometry.xmin,
+            y: geometry.ymax,
+            spatialReference: geometry.spatialReference
         });
-        const convertedMaxPoint = view.toScreen({
-            x: this.area.xmax,
-            y: this.area.ymax,
-            spatialReference: {
-                wkid: this.area.wkid
-            }
+        const screenPoint2 = view.toScreen({
+            x: geometry.xmax,
+            y: geometry.ymin,
+            spatialReference: geometry.spatialReference
         });
+        const width = screenPoint2.x - screenPoint1.x;
+        const height = screenPoint2.y - screenPoint1.y;
+
         return {
-            x: Math.round(convertedMinPoint.x),
-            y: Math.round(convertedMaxPoint.y),
-            width: Math.round(convertedMaxPoint.x - convertedMinPoint.x),
-            height: Math.round(convertedMinPoint.y - convertedMaxPoint.y)
+            x: screenPoint1.x,
+            y: screenPoint1.y,
+            width: width,
+            height: height
         }
     }
+
+    _highlightArea(geometry) {
+        this._clearHighlight();
+        this._currentHighlight = this._highlighter.highlight({
+            geometry: geometry || this._lastHighlightGeometry
+        });
+        if (geometry) {
+            this._lastHighlightGeometry = geometry;
+        }
+    }
+
+    _clearHighlight() {
+        if (this._currentHighlight) {
+            this._currentHighlight.remove();
+            this._currentHighlight = undefined;
+        }
+    }
+
+
 }

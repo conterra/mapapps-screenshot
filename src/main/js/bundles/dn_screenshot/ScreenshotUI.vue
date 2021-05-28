@@ -26,44 +26,25 @@
                 class="ct-flex-item overflow--auto pa-3"
             >
                 <h4>{{ i18n.areaTitle }}</h4>
-                <v-checkbox
-                    v-model="captureFullMap"
-                    :label="i18n.fullMapExtent"
-                    color="primary"
-                    @change="deleteArea()"
-                />
-                <div
-                    v-show="!captureFullMap"
-                    class="mb-2"
+                <v-btn
+                    v-if="!area"
+                    small
+                    class="ml-0 d-inline-block"
+                    @click="$emit('draw-area')"
                 >
-                    <v-btn-toggle
-                        v-model="toggle_exclusive"
-                    >
-                        <v-btn
-                            small
-                            class="ml-0 d-inline-block"
-                            @click="createDrawing()"
-                        >
-                            {{ selectAreaLabel }}
-                        </v-btn>
-                    </v-btn-toggle>
-                    <v-btn
-                        v-if="areaDrawn"
-                        small
-                        class="d-inline-block"
-                        :disabled="!areaDrawn"
-                        color="secondary"
-                        @click="deleteArea()"
-                    >
-                        {{ i18n.removeArea }}
-                    </v-btn>
-                    <p v-if="toggle_exclusive!==undefined">
-                        {{ i18n.drawInfo }}
-                    </p>
-                </div>
+                    {{ i18n.drawArea }}
+                </v-btn>
+                <v-btn
+                    v-else
+                    small
+                    class="ml-0 d-inline-block"
+                    @click="$emit('delete-area')"
+                >
+                    {{ i18n.deleteArea }}
+                </v-btn>
                 <h4>{{ i18n.fileFormat }}</h4>
                 <v-radio-group
-                    v-model="properties.format"
+                    v-model="format"
                     row
                 >
                     <v-radio
@@ -75,23 +56,23 @@
                     />
                 </v-radio-group>
                 <div
-                    v-show="properties.format==='jpg'"
+                    v-show="format==='jpg'"
                 >
                     <h4>{{ i18n.quality }}</h4>
                     <v-slider
-                        v-model="properties.quality"
+                        v-model="quality"
                         thumb-label
                         step="1"
                         max="100"
                         min="0"
                     />
                 </div>
-                <h4 v-if="basemap === undefined">
+                <h4 v-if="selectedBasemapId === undefined">
                     {{ i18n.backgroundTitle }}
                 </h4>
                 <v-checkbox
-                    v-if="basemap === undefined"
-                    v-model="properties.ignoreBackground"
+                    v-if="selectedBasemapId === undefined"
+                    v-model="ignoreBackground"
                     :label="i18n.background"
                     hide-details
                     color="primary"
@@ -102,7 +83,7 @@
                 <v-btn
                     color="primary"
                     block
-                    @click="takeScreenshot()"
+                    @click="$emit('take-screenshot')"
                 >
                     <v-icon
                         dark
@@ -110,7 +91,7 @@
                     >
                         cloud_download
                     </v-icon>
-                    Save Screenshot
+                    {{ i18n.save }}
                 </v-btn>
             </div>
         </div>
@@ -122,52 +103,36 @@
 
     export default {
         mixins: [Bindable],
+        props: {
+            i18n: {
+                type: Object,
+                default: () => {}
+            },
+            format: {
+                type: String,
+                default: () => "png"
+            },
+            quality: {
+                type: Number,
+                default: () => 98
+            },
+            ignoreBackground: {
+                type: Boolean,
+                default: () => false
+            },
+            area: {
+                type: Object,
+                default: () => {}
+            },
+            selectedBasemapId: {
+                type: String,
+                default: () => undefined
+            }
+        },
         data() {
             return {
-                properties: {
-                    format: "png",
-                    quality: 98,
-                    ignoreBackground: false
-                },
-                captureFullMap: true,
-                possibleFormats: ["png", "jpg"],
-                areaDrawn: false,
-                basemap: undefined,
-                toggle_exclusive: undefined
+                possibleFormats: ["png", "jpg"]
             };
-        },
-        computed: {
-            selectAreaLabel() {
-                return this.areaDrawn ? this.i18n.selectNew : this.i18n.selectArea
-            }
-        },
-        created() {
-            window.addEventListener('drawFinished', this.handleDrawFinished);
-        },
-        destroyed() {
-            window.removeEventListener('drawFinished', this.handleDrawFinished);
-        },
-        methods: {
-            takeScreenshot() {
-                this.$emit('takeScreenshot');
-            },
-            createDrawing() {
-                if (this.toggle_exclusive === undefined) {
-                    this.$emit('drawArea');
-                } else {
-                    this.$emit('drawAbort');
-                }
-            },
-            deleteArea() {
-                this.$emit('deleteArea');
-                this.$emit('drawAbort');
-                this.areaDrawn = false;
-                this.toggle_exclusive = undefined;
-            },
-            handleDrawFinished() {
-                this.areaDrawn = true;
-                this.toggle_exclusive = undefined;
-            }
         }
     }
 </script>

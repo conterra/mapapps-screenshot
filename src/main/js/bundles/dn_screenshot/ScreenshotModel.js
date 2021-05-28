@@ -17,9 +17,9 @@ import {declare} from "apprt-core/Mutable";
 
 export default declare({
 
-    ignoreBackground: undefined,
-    quality: undefined,
     format: undefined,
-    area: undefined
+    quality: undefined,
+    area: undefined,
+    ignoreBackground: undefined
 
 });
