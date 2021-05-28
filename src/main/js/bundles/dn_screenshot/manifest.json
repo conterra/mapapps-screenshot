@@ -9,8 +9,7 @@
         "esri": "^4.6.0",
         "apprt-vue": "^4.6.0",
         "apprt-vuetify": "^4.6.0",
-        "mapdraw-api": "^4.6.0",
-        "highlights": "^4.6.0"
+        "mapdraw-api": "^4.6.0"
     },
     "CSS-Themes-Extension": [
         {
@@ -83,10 +82,6 @@
                 {
                     "name": "_appCtx",
                     "providing": "ct.framework.api.ApplicationContext"
-                },
-                {
-                    "name": "_highlighter",
-                    "providing": "highlights.HighlightService"
                 },
                 {
                     "name": "_screenshotModel",

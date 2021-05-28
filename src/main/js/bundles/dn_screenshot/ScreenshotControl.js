@@ -18,7 +18,7 @@ import async from "apprt-core/async";
 export default class ScreenshotControl {
     /**
      * This lets the user draw a rectangle that is used as the area of the screenshot. The rectangle is permanently
-     * visualized on the map as a graphic using the HighlightService.
+     * visualized on the map as a canvas element.
      */
     startDrawing() {
         const view = this._mapWidgetModel.view;
@@ -29,9 +29,9 @@ export default class ScreenshotControl {
         this._drawListener = drawing.watch("graphic", evt => {
             const graphic = evt.value;
             const geometry = graphic.geometry;
-            this._highlightArea(geometry);
             const screenshotModel = this._screenshotModel;
-            screenshotModel.area = this._getArea(geometry);
+            const area = screenshotModel.area = this._getArea(geometry);
+            this.drawArea(area);
             this.stopDrawing();
         });
 
@@ -54,7 +54,6 @@ export default class ScreenshotControl {
      * This takes a screenshot.
      */
     takeScreenshot() {
-        this._clearHighlight();
         async(() => {
             const screenshotModel = this._screenshotModel;
             const options  = {
@@ -65,7 +64,6 @@ export default class ScreenshotControl {
             }
             const view = this._mapWidgetModel.view;
             view.takeScreenshot(options).then((screenshot) => {
-                this._highlightArea();
                 const link = document.createElement('a');
                 let format = "png";
                 if (screenshotModel.format) {
@@ -78,13 +76,28 @@ export default class ScreenshotControl {
         }, 100);
     }
 
+    drawArea(area) {
+        this.canvas = this._mapWidgetModel.view.container;
+        const element = document.createElement('div');
+        element.className = 'screenshot_rectangle'
+        element.style.left = area.x + 'px';
+        element.style.top = area.y + 'px';
+        element.style.width = area.width + 'px';
+        element.style.height = area.width + 'px';
+        this.canvas.appendChild(element);
+    }
+
     /**
      * This deletes the area from the properties and removes the corresponding graphic
      */
     deleteArea() {
-        this._lastHighlightGeometry = undefined;
         this._screenshotModel.area = undefined;
-        this._clearHighlight();
+        const areas = document.getElementsByClassName("screenshot_rectangle");
+        if (areas && areas.length) {
+            areas.forEach((area) => {
+                area.remove();
+            })
+        }
     }
 
     /**
@@ -112,23 +125,6 @@ export default class ScreenshotControl {
             y: screenPoint1.y,
             width: width,
             height: height
-        }
-    }
-
-    _highlightArea(geometry) {
-        this._clearHighlight();
-        this._currentHighlight = this._highlighter.highlight({
-            geometry: geometry || this._lastHighlightGeometry
-        });
-        if (geometry) {
-            this._lastHighlightGeometry = geometry;
-        }
-    }
-
-    _clearHighlight() {
-        if (this._currentHighlight) {
-            this._currentHighlight.remove();
-            this._currentHighlight = undefined;
         }
     }
 
