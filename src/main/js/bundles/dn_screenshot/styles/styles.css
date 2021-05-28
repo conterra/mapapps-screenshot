@@ -13,30 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.ctAppRoot .screenshot_rectangle {
-    border-color: #12a5f4;
-    border-width: 2px;
-    border-style: solid;
-    position: absolute;
-    pointer-events: none;
-}
-
-.ctAppRoot.everlasting .screenshot_rectangle {
-    border-color: #12a5f4;
-}
-
-.ctAppRoot.autumn .screenshot_rectangle {
-    border-color: #2980b9;
-}
-
-.ctAppRoot.summer .screenshot_rectangle {
-    border-color: #8c0f1a;
-}
-
-.ctAppRoot.spring .screenshot_rectangle {
-    border-color: #16a085;
-}
-
-.ctAppRoot.winter .screenshot_rectangle {
-    border-color: #3c3c3c;
+.ctAppRoot .ct-screenshot-widget .screenshot-settings-div {
+    overflow-y: auto;
+    overflow-x: hidden;
 }

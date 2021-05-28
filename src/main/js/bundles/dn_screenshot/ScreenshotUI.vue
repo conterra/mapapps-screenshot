@@ -22,74 +22,96 @@
         class="pa-0"
     >
         <div class="ct-flex-container ct-flex ct-flex-container--column fullWidthAndHeight padding-default">
-            <div
-                class="ct-flex-item overflow--auto pa-3"
-            >
-                <h4>{{ i18n.areaTitle }}</h4>
-                <v-btn
-                    v-if="!area"
-                    small
-                    class="ml-0 d-inline-block"
-                    @click="$emit('draw-area')"
-                >
-                    {{ i18n.drawArea }}
-                </v-btn>
-                <v-btn
-                    v-else
-                    small
-                    class="ml-0 d-inline-block"
-                    @click="$emit('delete-area')"
-                >
-                    {{ i18n.deleteArea }}
-                </v-btn>
-                <h4>{{ i18n.fileFormat }}</h4>
-                <v-radio-group
-                    v-model="format"
+            <div class="screenshot-settings-div ct-flex-item pa-2">
+                <v-layout
                     row
-                >
-                    <v-radio
-                        v-for="form in possibleFormats"
-                        :key="form"
-                        :label="form"
-                        :value="form"
-                        color="primary"
-                    />
-                </v-radio-group>
-                <div
-                    v-show="format==='jpg'"
-                >
-                    <h4>{{ i18n.quality }}</h4>
-                    <v-slider
-                        v-model="quality"
-                        thumb-label
-                        step="1"
-                        max="100"
-                        min="0"
-                    />
-                </div>
-                <h4 v-if="selectedBasemapId === undefined">
-                    {{ i18n.backgroundTitle }}
-                </h4>
-                <v-checkbox
-                    v-if="selectedBasemapId === undefined"
-                    v-model="ignoreBackground"
-                    :label="i18n.background"
-                    hide-details
-                    color="primary"
-                />
+                    wrap>
+                    <v-flex
+                        md12
+                        pb-2>
+                        <h4>{{ i18n.areaTitle }}</h4>
+                        <v-btn
+                            v-if="!area"
+                            block
+                            @click="$emit('draw-area')"
+                        >
+                            <v-icon left>
+                                highlight_alt
+                            </v-icon>
+                            {{ i18n.drawArea }}
+                        </v-btn>
+                        <v-btn
+                            v-else
+                            block
+                            color="secondary"
+                            @click="$emit('delete-area')"
+                        >
+                            <v-icon left>
+                                cancel_presentation
+                            </v-icon>
+                            {{ i18n.deleteArea }}
+                        </v-btn>
+                    </v-flex>
+                    <v-flex
+                        md12
+                        pb-2>
+                        <h4>{{ i18n.fileFormat }}</h4>
+                        <v-radio-group
+                            v-model="format"
+                            class="ma-0"
+                            hide-details
+                            row
+                        >
+                            <v-radio
+                                v-for="form in possibleFormats"
+                                :key="form"
+                                :label="form"
+                                :value="form"
+                                color="primary"
+                            />
+                        </v-radio-group>
+                    </v-flex>
+                    <v-flex
+                        v-show="format==='jpg'"
+                        md12
+                        pb-2>
+                        <h4>{{ i18n.quality }}</h4>
+                        <v-slider
+                            v-model="quality"
+                            hide-details
+                            class="my-0 mx-1"
+                            thumb-label
+                            step="1"
+                            max="100"
+                            min="0"
+                        />
+                    </v-flex>
+                    <v-flex
+                        md12
+                        pb-2>
+                        <h4 v-if="selectedBasemapId === undefined">
+                            {{ i18n.backgroundTitle }}
+                        </h4>
+                        <v-checkbox
+                            v-if="selectedBasemapId === undefined"
+                            v-model="ignoreBackground"
+                            :label="i18n.background"
+                            class="pa-0"
+                            hide-details
+                            color="primary"
+                        />
+                    </v-flex>
+                </v-layout>
             </div>
             <v-divider/>
-            <div class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink mt-3 px-3">
+            <div class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink pt-3">
                 <v-btn
                     color="primary"
                     block
                     @click="$emit('take-screenshot')"
                 >
-                    <v-icon
-                        dark
-                        class="mr-2"
-                    >
-                        cloud_download
+                    <v-icon>
+                        file_download
                     </v-icon>
                     {{ i18n.save }}
                 </v-btn>
