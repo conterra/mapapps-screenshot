@@ -22,12 +22,12 @@ import {ifDefined} from "apprt-binding/Transformers";
 export default class ScreenshotUIFactory {
 
     createInstance() {
-        let propertiesToViewBinding = this._propertiesToViewBinding = this.declarePropertiesToVueBinding();
-        let screenshotToViewBinding = this._screenshotToViewBinding = this.declareScreenshotToVueBinding();
-        let basemapToViewBinding = this._basemapToViewBinding = this.declareBasemapToVueBinding();
+        let propertiesToViewBinding = this.declarePropertiesToVueBinding();
+        let screenshotToViewBinding = this.declareScreenshotToVueBinding();
+        let basemapToViewBinding = this.declareBasemapToVueBinding();
         const vm = new Vue(ScreenshotUI);
         vm.i18n = this._i18n.get().ui;
-        const props = this.config;
+        const props = this._config;
         const widget = VueDijit(vm, {
             class: "ct-screenshot-widget"
         });
@@ -44,11 +44,20 @@ export default class ScreenshotUIFactory {
             propertiesToViewBinding.enable().syncToRightNow();
             screenshotToViewBinding.enable().syncToLeftNow();
             basemapToViewBinding.enable().syncToRightNow();
-            vm.$on("drawAbort", this.screenshotControl.abortDrawing.bind(this));
-            vm.$on("drawArea", this.screenshotControl.createDrawing.bind(this));
-            vm.$on("takeScreenshot", this.screenshotControl.takeScreenshot.bind(this));
-            vm.$on("deleteArea", this.screenshotControl.deleteArea.bind(this));
+            vm.$on("drawAbort", () => {
+                this._screenshotControl.abortDrawing();
+            });
+            vm.$on("drawArea", () => {
+                this._screenshotControl.createDrawing();
+            });
+            vm.$on("takeScreenshot", () => {
+                this._screenshotControl.takeScreenshot();
+            });
+            vm.$on("deleteArea", () => {
+                this._screenshotControl.deleteArea()
+            });
         }
+
         widget.disableBinding = () => {
             propertiesToViewBinding?.disable();
             screenshotToViewBinding?.disable();

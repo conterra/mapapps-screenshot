@@ -76,23 +76,19 @@
             "provides": "dn_screenshot.ScreenshotControl",
             "references": [
                 {
-                    "name": "model",
+                    "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
-                },
-                {
-                    "name": "layerFactory",
-                    "providing": "map-config-api.LayerFactory"
                 },
                 {
                     "name": "_appCtx",
                     "providing": "ct.framework.api.ApplicationContext"
                 },
                 {
-                    "name": "actionService",
+                    "name": "_actionService",
                     "providing": "map-actions.ActionService"
                 },
                 {
-                    "name": "config",
+                    "name": "_config",
                     "providing": "dn_screenshot.Config"
                 }
             ]
@@ -166,35 +162,15 @@
             },
             "references": [
                 {
-                    "name": "model",
-                    "providing": "map-widget.MapWidgetModel"
-                },
-                {
-                    "name": "basemap",
+                    "name": "_basemapsModel",
                     "providing": "map-basemaps-api.BasemapsModel"
                 },
                 {
-                    "name": "layerFactory",
-                    "providing": "map-config-api.LayerFactory"
-                },
-                {
-                    "name": "_appCtx",
-                    "providing": "ct.framework.api.ApplicationContext"
-                },
-                {
-                    "name": "drawFactory",
-                    "providing": "mapdraw-api.DrawingFactory"
-                },
-                {
-                    "name": "actionService",
-                    "providing": "map-actions.ActionService"
-                },
-                {
-                    "name": "screenshotControl",
+                    "name": "_screenshotControl",
                     "providing": "dn_screenshot.ScreenshotControl"
                 },
                 {
-                    "name": "config",
+                    "name": "_config",
                     "providing": "dn_screenshot.Config"
                 }
             ]

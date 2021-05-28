@@ -19,14 +19,14 @@ export default class ScreenshotControl {
      * visualized on the map as a graphic using actionService.
      */
     createDrawing() {
-        const view = this.model.view
+        const view = this._mapWidgetModel.view
         this.stopPanning = true;
         view.on("drag", (event) => {
             if (this.stopPanning) {
                 event.stopPropagation();
             }
         });
-        this.canvas = this.model.view.container
+        this.canvas = this._mapWidgetModel.view.container;
         if (this.canvas) {
             const mouse = {
                 x: 0,
@@ -105,18 +105,13 @@ export default class ScreenshotControl {
      * This takes a screenshot.
      */
     takeScreenshot() {
-        const view = this.model.view;
-        let properties;
-        if (this.properties) {
-            properties = this.properties;
-            const area = document.getElementsByClassName("screenshot_rectangle");
-            if (area && area.length) {
-                properties.area = this.area;
-            }
-        } else {
-            properties = this.config;
+        const properties = this._config;
+        const area = document.getElementsByClassName("screenshot_rectangle");
+        if (area && area.length) {
+            properties.area = this.area;
         }
 
+        const view = this._mapWidgetModel.view;
         view.takeScreenshot(properties).then((screenshot) => {
             const link = document.createElement('a');
             let format = "png";
@@ -133,7 +128,7 @@ export default class ScreenshotControl {
      * This deletes the area from the properties and removes the corresponding graphic
      */
     deleteArea() {
-        this.properties.area = undefined;
+        this._config.area = undefined;
         const areas = document.getElementsByClassName("screenshot_rectangle");
         if (areas && areas.length) {
             areas.forEach((area) => {
