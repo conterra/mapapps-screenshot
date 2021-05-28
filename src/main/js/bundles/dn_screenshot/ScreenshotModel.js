@@ -19,6 +19,7 @@ export default declare({
 
     ignoreBackground: undefined,
     quality: undefined,
-    format: undefined
+    format: undefined,
+    area: undefined
 
 });

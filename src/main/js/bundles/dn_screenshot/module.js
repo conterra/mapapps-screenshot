@@ -16,5 +16,5 @@
 import ".";
 import "./ScreenshotControl";
 import "./ScreenshotUIFactory";
-import "./Config";
+import "./ScreenshotModel";
 import "ct/tools/Tool";

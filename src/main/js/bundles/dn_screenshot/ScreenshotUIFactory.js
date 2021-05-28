@@ -27,13 +27,13 @@ export default class ScreenshotUIFactory {
         let basemapToViewBinding = this.declareBasemapToVueBinding();
         const vm = new Vue(ScreenshotUI);
         vm.i18n = this._i18n.get().ui;
-        const props = this._config;
+        const screenshotModel = this._screenshotModel;
         const widget = VueDijit(vm, {
             class: "ct-screenshot-widget"
         });
 
         // bind properties and view model
-        propertiesToViewBinding.bindTo(props, vm.properties);
+        propertiesToViewBinding.bindTo(screenshotModel, vm.properties);
         // bind properties and view model
         screenshotToViewBinding.bindTo(this, vm);
         // bind basemap and vue

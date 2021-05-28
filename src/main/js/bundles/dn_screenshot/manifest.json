@@ -88,8 +88,8 @@
                     "providing": "map-actions.ActionService"
                 },
                 {
-                    "name": "_config",
-                    "providing": "dn_screenshot.Config"
+                    "name": "_screenshotModel",
+                    "providing": "dn_screenshot.ScreenshotModel"
                 }
             ]
         },
@@ -119,7 +119,7 @@
                 },
                 {
                     "name": "config",
-                    "providing": "dn_screenshot.Config"
+                    "providing": "dn_screenshot.ScreenshotModel"
                 }
             ]
         },
@@ -170,14 +170,15 @@
                     "providing": "dn_screenshot.ScreenshotControl"
                 },
                 {
-                    "name": "_config",
-                    "providing": "dn_screenshot.Config"
+                    "name": "_screenshotModel",
+                    "providing": "dn_screenshot.ScreenshotModel"
                 }
             ]
         },
         {
             "name": "Config",
-            "provides": "dn_screenshot.Config",
+            "impl": "./ScreenshotModel",
+            "provides": "dn_screenshot.ScreenshotModel",
             "properties": {
                 "-ignoreBackground": false,
                 "-quality": 98,

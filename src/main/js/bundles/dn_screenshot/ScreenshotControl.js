@@ -105,18 +105,18 @@ export default class ScreenshotControl {
      * This takes a screenshot.
      */
     takeScreenshot() {
-        const properties = this._config;
+        const screenshotModel = this._screenshotModel;
         const area = document.getElementsByClassName("screenshot_rectangle");
         if (area && area.length) {
-            properties.area = this.area;
+            screenshotModel.area = this.area;
         }
 
         const view = this._mapWidgetModel.view;
-        view.takeScreenshot(properties).then((screenshot) => {
+        view.takeScreenshot(screenshotModel).then((screenshot) => {
             const link = document.createElement('a');
             let format = "png";
-            if (properties.format) {
-                format = properties.format;
+            if (screenshotModel.format) {
+                format = screenshotModel.format;
             }
             link.download = this._appCtx.applicationName + "_screenshot." + format;
             link.href = screenshot.dataUrl;
@@ -128,7 +128,7 @@ export default class ScreenshotControl {
      * This deletes the area from the properties and removes the corresponding graphic
      */
     deleteArea() {
-        this._config.area = undefined;
+        this._screenshotModel.area = undefined;
         const areas = document.getElementsByClassName("screenshot_rectangle");
         if (areas && areas.length) {
             areas.forEach((area) => {
