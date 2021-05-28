@@ -21,6 +21,8 @@ export default class ScreenshotControl {
      * visualized on the map as a graphic using the HighlightService.
      */
     startDrawing() {
+        const view = this._mapWidgetModel.view;
+        view.cursor = "crosshair";
         const drawing = this._drawing;
         drawing.mode = "rectangle";
 
@@ -37,6 +39,8 @@ export default class ScreenshotControl {
     }
 
     stopDrawing() {
+        const view = this._mapWidgetModel.view;
+        view.cursor = "default";
         const drawing = this._drawing;
         drawing.active = false;
         const drawListener = this._drawListener;
