@@ -32,10 +32,40 @@
                     "l": 20,
                     "t": 125,
                     "w": 320,
-                    "h": 425
+                    "h": 450
                 },
                 "minSize": {
                     "h": 425
+                }
+            }
+        },
+        {
+            "widgetRole": "screenshotWidget",
+            "sublayout": [
+                "mobile_portrait"
+            ],
+            "window": {
+                "resizable": false,
+                "draggable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": "50%",
+                    "b": 0
+                }
+            }
+        },
+        {
+            "widgetRole": "screenshotWidget",
+            "sublayout": [
+                "mobile_landscape"
+            ],
+            "window": {
+                "resizable": false,
+                "draggable": false,
+                "marginBox": {
+                    "w": "50%",
+                    "h": "100%",
+                    "l": 0
                 }
             }
         }
