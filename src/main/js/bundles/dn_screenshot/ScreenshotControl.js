@@ -104,7 +104,7 @@ export default class ScreenshotControl {
     /**
      * This takes a screenshot.
      */
-    screenshot() {
+    takeScreenshot() {
         const view = this.model.view;
         let properties;
         if (this.properties) {

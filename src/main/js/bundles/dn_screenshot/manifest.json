@@ -114,7 +114,7 @@
                 "rules": {
                     "noGroup": true
                 },
-                "clickHandler": "screenshot"
+                "clickHandler": "takeScreenshot"
             },
             "references": [
                 {

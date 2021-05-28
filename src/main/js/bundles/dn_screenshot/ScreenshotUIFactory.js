@@ -46,17 +46,14 @@ export default class ScreenshotUIFactory {
             basemapToViewBinding.enable().syncToRightNow();
             vm.$on("drawAbort", this.screenshotControl.abortDrawing.bind(this));
             vm.$on("drawArea", this.screenshotControl.createDrawing.bind(this));
-            vm.$on("takeScreenshot", this.screenshotControl.screenshot.bind(this));
+            vm.$on("takeScreenshot", this.screenshotControl.takeScreenshot.bind(this));
             vm.$on("deleteArea", this.screenshotControl.deleteArea.bind(this));
         }
         widget.disableBinding = () => {
             propertiesToViewBinding?.disable();
             screenshotToViewBinding?.disable();
             basemapToViewBinding?.disable();
-            vm.$off("drawAbort", this.screenshotControl.abortDrawing.bind(this));
-            vm.$off("drawArea", this.screenshotControl.createDrawing.bind(this));
-            vm.$off("takeScreenshot", this.screenshotControl.screenshot.bind(this));
-            vm.$off("deleteArea", this.screenshotControl.deleteArea.bind(this));
+            vm.$off();
         }
 
         // clean up binding and attached functions
