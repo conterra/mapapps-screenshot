@@ -35,7 +35,9 @@
     "bundles": {
         "dn_screenshot": {
             "Config": {
-                "format": "jpg"
+                "format": "png",
+                "quality": 98,
+                "ignoreBackground": false
             }
         },
         "banner": {

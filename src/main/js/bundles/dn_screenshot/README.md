@@ -28,9 +28,9 @@ This configures the ScreenshotTool.
 
 ```json
 "Config": {
-    "ignoreBackground": false,
+    "format": "png",
     "quality": 98,
-    "format": "jpg"
+    "ignoreBackground": false,
 }
 ```
 
