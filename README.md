@@ -6,7 +6,7 @@ This bundle provides two tools to take simple or configured screenshots of the m
 https://demos.conterra.de/mapapps/resources/apps/downloads_screenshot/index.html
 
 ## Installation Guide
-**Requirement: map.apps 4.9.2 or later**
+**Requirement: map.apps 4.9.0 or later**
 
 Load the bundle "dn_screenshot" and add the "screenshotTool" or "screenshotToggleTool" to your app.
 The "screenshotTool" simply provides a button for taking screenshots.

@@ -6,7 +6,7 @@ configuration.
 
 ## Usage
 
-**Requirement: map.apps 4.9.2 or later**
+**Requirement: map.apps 4.9.0 or later**
 
 1. First you need to add the bundle screenshot to your app.
 2. Then you can configure it as described in the section.
