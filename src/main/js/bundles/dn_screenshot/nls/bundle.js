@@ -35,7 +35,10 @@ module.exports = {
             deleteArea: "Remove area",
             backgroundTitle: "Background options",
             background: "Ignore background color",
-            save: "Save Screenshot"
+            save: "Save Screenshot",
+            alerts: {
+                noArea: "Without a defined map area, a screenshot of the entire map is generated."
+            }
         }
     }),
     "de": true

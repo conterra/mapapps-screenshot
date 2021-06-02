@@ -34,6 +34,9 @@ module.exports = {
         deleteArea: "Kartenausschnitt zurücksetzen",
         backgroundTitle: "Optionen für den Hintergrund",
         background: "Hintergrundfarbe ignorieren",
-        save: "Screenshot speichern"
+        save: "Screenshot speichern",
+        alerts: {
+            noArea: "Ohne definierten Kartenausschnitt wird ein Screenshot der ganzen Karte erzeugt."
+        }
     }
 };

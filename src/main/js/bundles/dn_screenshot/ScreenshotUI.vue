@@ -51,6 +51,12 @@
                             </v-icon>
                             {{ i18n.deleteArea }}
                         </v-btn>
+                        <v-alert
+                            v-if="!area"
+                            :value="true"
+                            type="info"
+                            dismissible
+                        >{{ i18n.alerts.noArea }}</v-alert>
                     </v-flex>
                     <v-flex
                         md12
