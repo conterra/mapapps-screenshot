@@ -83,7 +83,7 @@ export default class ScreenshotControl {
         element.style.left = area.x + 'px';
         element.style.top = area.y + 'px';
         element.style.width = area.width + 'px';
-        element.style.height = area.width + 'px';
+        element.style.height = area.height + 'px';
         this.canvas.appendChild(element);
     }
 
