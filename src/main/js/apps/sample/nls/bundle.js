@@ -15,7 +15,7 @@
  */
 module.exports = {
     root: {
-        apptitle: "Screenshot"
+        apptitle: "Screenshot Sample"
     },
     "de": true
 };
