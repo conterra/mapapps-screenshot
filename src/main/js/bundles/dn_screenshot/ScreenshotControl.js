@@ -56,7 +56,7 @@ export default class ScreenshotControl {
     takeScreenshot() {
         async(() => {
             const screenshotModel = this._screenshotModel;
-            const options  = {
+            const options = {
                 format: screenshotModel.format,
                 quality: screenshotModel.quality,
                 area: screenshotModel.area,
@@ -94,9 +94,9 @@ export default class ScreenshotControl {
         this._screenshotModel.area = undefined;
         const areas = document.getElementsByClassName("screenshot_rectangle");
         if (areas && areas.length) {
-            areas.forEach((area) => {
-                area.remove();
-            })
+            for (let i = 0; i < areas.length; i++) {
+                areas[i].parentNode.removeChild(areas[i]);
+            }
         }
     }
 
