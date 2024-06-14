@@ -61,7 +61,7 @@ export default class ScreenshotControl {
                 quality: screenshotModel.quality,
                 area: screenshotModel.area,
                 ignoreBackground: screenshotModel.ignoreBackground
-            }
+            };
             const view = this._mapWidgetModel.view;
             view.takeScreenshot(options).then((screenshot) => {
                 const link = document.createElement('a');
@@ -79,7 +79,7 @@ export default class ScreenshotControl {
     drawArea(area) {
         this.canvas = this._mapWidgetModel.view.container;
         const element = document.createElement('div');
-        element.className = 'screenshot_rectangle'
+        element.className = 'screenshot_rectangle';
         element.style.left = area.x + 'px';
         element.style.top = area.y + 'px';
         element.style.width = area.width + 'px';
@@ -125,7 +125,7 @@ export default class ScreenshotControl {
             y: screenPoint1.y,
             width: width,
             height: height
-        }
+        };
     }
 
 

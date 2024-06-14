@@ -48,7 +48,7 @@ export default class ScreenshotUIFactory {
             vm.$on("take-screenshot", () => {
                 this._screenshotControl.takeScreenshot();
             });
-        }
+        };
 
         widget.disableBinding = () => {
             this._screenshotControl.stopDrawing();
@@ -56,7 +56,7 @@ export default class ScreenshotUIFactory {
             propertiesToViewBinding?.disable();
             basemapToViewBinding?.disable();
             vm.$off();
-        }
+        };
 
         // clean up binding and attached functions
         widget.own({

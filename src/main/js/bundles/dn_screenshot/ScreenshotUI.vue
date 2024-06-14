@@ -25,10 +25,12 @@
             <div class="screenshot-settings-div ct-flex-item pa-2">
                 <v-layout
                     row
-                    wrap>
+                    wrap
+                >
                     <v-flex
                         md12
-                        pb-2>
+                        pb-2
+                    >
                         <h4>{{ i18n.areaTitle }}</h4>
                         <v-btn
                             v-if="!area"
@@ -56,11 +58,14 @@
                             :value="true"
                             type="info"
                             dismissible
-                        >{{ i18n.alerts.noArea }}</v-alert>
+                        >
+                            {{ i18n.alerts.noArea }}
+                        </v-alert>
                     </v-flex>
                     <v-flex
                         md12
-                        pb-2>
+                        pb-2
+                    >
                         <h4>{{ i18n.fileFormat }}</h4>
                         <v-radio-group
                             v-model="format"
@@ -80,7 +85,8 @@
                     <v-flex
                         v-show="format==='jpg'"
                         md12
-                        pb-2>
+                        pb-2
+                    >
                         <h4>{{ i18n.quality }}</h4>
                         <v-slider
                             v-model="quality"
@@ -94,7 +100,8 @@
                     </v-flex>
                     <v-flex
                         md12
-                        pb-2>
+                        pb-2
+                    >
                         <h4 v-if="selectedBasemapId === undefined">
                             {{ i18n.backgroundTitle }}
                         </h4>
@@ -109,7 +116,7 @@
                     </v-flex>
                 </v-layout>
             </div>
-            <v-divider/>
+            <v-divider />
             <div class="ct-flex-item ct-flex-item--no-grow ct-flex-item--no-shrink pt-3">
                 <v-btn
                     color="primary"
@@ -162,5 +169,5 @@
                 possibleFormats: ["png", "jpg"]
             };
         }
-    }
+    };
 </script>
