@@ -25,9 +25,6 @@
             "dn_screenshot",
             "dn_imprintprivacy"
         ],
-        "require": [
-            "${app}.app"
-        ],
         "i18n": [
             "bundle"
         ]
