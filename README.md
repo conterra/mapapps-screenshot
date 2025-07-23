@@ -6,7 +6,7 @@ This bundle provides two tools to take simple or configured screenshots of the m
 [![devnet-bundle-snapshot](https://github.com/conterra/mapapps-screenshot/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-screenshot/actions/workflows/devnet-bundle-snapshot.yml)
 
 ## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_screenshot/index.html
+https://demos.conterra.de/mapapps/resources/apps/public_demo_screenshot/index.html
 
 ## Installation Guide
 **Requirement: map.apps 4.9.0 or later**
